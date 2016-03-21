@@ -1,0 +1,71 @@
+
+sylius_resource:
+    settings:
+        sortable: true
+        filterable: true
+        paginate: $paginate
+    resources:
+        positibe.page:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:Page
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Page
+                controller: Positibe\Bundle\CmfBundle\Controller\TranslatableController
+                repository: Positibe\Bundle\CmfBundle\Repository\PageRepository
+        positibe.category:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:Category
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Category
+                controller: Positibe\Bundle\CmfBundle\Controller\TranslatableController
+                repository: Positibe\Bundle\CmfBundle\Repository\CategoryRepository
+        positibe.menu:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:Menu
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\MenuNode
+                controller: Positibe\Bundle\CmfBundle\Controller\TranslatableController
+                repository: Positibe\Bundle\CmfBundle\Repository\MenuNodeRepository
+        positibe.block:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:Block
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Abstracts\AbstractVisibilityBlock
+                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+                repository: Positibe\Bundle\CmfBundle\Repository\BlockRepository
+        positibe.menu_block:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:MenuBlock
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Blocks\MenuBlock
+                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+                repository: Positibe\Bundle\CmfBundle\Repository\BlockRepository
+        positibe.content_block:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:ContentBlock
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Blocks\ContentBlock
+                controller: Positibe\Bundle\CmfBundle\Controller\TranslatableController
+                repository: Positibe\Bundle\CmfBundle\Repository\BlockRepository
+        positibe.page_block:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:PageBlock
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Blocks\PageBlock
+                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+                repository: Positibe\Bundle\CmfBundle\Repository\BlockRepository
+        positibe.gallery_block:
+            driver: doctrine/orm
+            object_manager: default
+            templates: PositibeCmfBundle:GalleryBlock
+            classes:
+                model:      Positibe\Bundle\OrmContentBundle\Entity\Blocks\GalleryBlock
+                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+                repository: Positibe\Bundle\CmfBundle\Repository\BlockRepository

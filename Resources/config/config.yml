@@ -1,0 +1,96 @@
+imports:
+  - { resource: @PositibeOrmSeoBundle/Resources/config/config.yml}
+  - { resource: @PositibeOrmContentBundle/Resources/config/config.yml }
+  - { resource: @PositibeOrmMediaBundle/Resources/config/config.yml }
+  - { resource: @PositibeOrmMenuBundle/Resources/config/config.yml }
+  - { resource: @PositibeOrmRoutingBundle/Resources/config/config.yml }
+  - { resource: sylius_crud.yml}
+
+parameters:
+    locale: es
+    locales: [es, en, fr]
+    stof_doctrine_extensions.event_listener.locale.class: Positibe\Bundle\CmfBundle\EventListener\LocaleListener
+
+twig:
+    form:
+        resources:
+            - 'PositibeCmfBundle::_form_media_widgets.html.twig'
+            - 'SonataCoreBundle:Form:datepicker.html.twig'
+
+sonata_core: ~
+
+stof_doctrine_extensions:
+    default_locale: %locale%
+    translation_fallback: true
+    orm:
+        default:
+#            tree: true
+            sluggable: true
+            timestampable: true
+            translatable: true
+#            softdeleteable: true
+#            loggable: true
+            sortable: true
+#doctrine:
+#    orm:
+#        entity_managers:
+#            default:
+#                filters:
+#                    softdeleteable:
+#                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+#                        enabled: true
+
+lunetics_locale:
+    switcher:
+        template: PositibeCmfBundle:Locale:switcher.html.twig
+#        show_current_locale: false
+#        use_controller: true                # Must be set to true if you want to use the controller. Defaults to false
+#    #    use_referrer: false                 # Redirect to the origin url from where the switcher was used. Defaults to true
+#        redirect_to_route: homepage   # This parameter MUST be set. Fallback route if no referrer could be found.
+    allowed_locales: %locales%
+#    guessing_excluded_pattern: ^/admin|^/soporte
+#    cookie:
+#        set_on_change: true
+    guessing_order:
+        - session
+        - cookie
+        - query
+#        - router
+    #    - browser
+
+
+liip_imagine:
+    filter_sets:
+        # define the filter to be used with the image preview
+        image_upload_thumbnail:
+            filters:
+                thumbnail: { size: [100, 100], mode: outbound }
+        image_thumbnail:
+            filters:
+                thumbnail: { size: [250, 250], mode: outbound }
+        image_thumbnail_small:
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }
+ivory_ck_editor:
+    configs:
+        default:
+            toolbar: standard
+            filebrowserUploadRoute: "cmf_media_upload"
+            filebrowserBrowseRoute: "elfinder"
+            skin: "../../positibecmf/ckeditor/skins/office2013"
+fm_elfinder:
+    locale: %locale% # defaults to current request locale
+    editor: ckeditor # other choices are tinymce or simple
+#    showhidden: false # defaults to false
+    fullscreen: true # defaults true, applies to simple and ckeditor editors
+    include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+    compression: false # enable if you configured the uglifycss and uglifyjs2 assetic filters and want compression
+    connector:
+        debug: false # defaults to false
+        roots:       # at least one root must be defined
+            uploads:
+                driver: LocalFileSystem
+                path: uploads
+                upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                upload_deny: ['all']
+                upload_max_size: 2M

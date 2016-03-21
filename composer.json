@@ -1,0 +1,45 @@
+{
+    "name": "positibe/cmf-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony PositibeCmfBundle",
+    "keywords": ["cmf","content management framework", "positibe", "positibelabs"],
+    "homepage": "http://positibelabs.blogspot.com/bundles/cmf",
+    "license": "Private",
+    "version": "0.3.0.0",
+    "authors": [
+        {
+            "name": "Pedro Carlos Abreu Jiménez",
+            "email": "pcabreus@gmail.com",
+            "homepage": "https://github.com/pcabreus"
+        },
+        {
+            "name": "PositibeLabs Cooperative",
+            "homepage": "https://github.com/positibelabs"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "~2.3",
+        "stof/doctrine-extensions-bundle": "1.1.*",
+        "twig/extensions": "~1.0",
+        "lunetics/locale-bundle": "2.4.*",
+        "sonata-project/core-bundle": "2.3.*",
+        "sylius/resource-bundle": "0.15.*",
+        "genemu/form-bundle": "~2.2.0"
+    },
+    "suggestion": {
+        "positibe/orm-block-bundle": "~0.0",
+        "positibe/orm-menu-bundle": "~0.0",
+        "positibe/orm-routing-bundle": "~0.0",
+        "positibe/orm-content-bundle": "~0.0",
+        "positibe/orm-seo-bundle": "~0.0",
+        "positibe/orm-media-bundle": "~0.0"
+    },
+    "autoload": {
+        "psr-4": { "Positibe\\Bundle\\CmfBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3.x-dev"
+        }
+    }
+}

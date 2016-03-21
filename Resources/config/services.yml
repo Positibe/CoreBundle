@@ -1,0 +1,11 @@
+services:
+    positibe_cmf.locale_switcher_extension:
+        class: Positibe\Bundle\CmfBundle\Twig\Extension\LocaleSwitcherExtension
+        arguments: [@service_container]
+        tags:
+          - { name: twig.extension }
+
+    positibe_cmf.metronic_pagerfanta_view:
+        class: Positibe\Bundle\CmfBundle\Pagerfanta\View\MetronicView
+        public: false
+        tags: [{ name: pagerfanta.view, alias: positibe_metronic }]
