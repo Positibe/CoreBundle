@@ -12,6 +12,7 @@ namespace Positibe\Bundle\CmfBundle\Repository;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Gedmo\Translatable\TranslatableListener;
 use Positibe\Bundle\OrmContentBundle\Entity\MenuNode;
 use Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeRepositoryInterface;
 use Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeRepositoryTrait;
@@ -28,13 +29,34 @@ class MenuNodeRepository extends EntityRepository implements MenuNodeRepositoryI
 {
     use MenuNodeRepositoryTrait;
 
+    private $locale;
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
     public function getQuery(QueryBuilder $qb)
     {
         $query = $qb->getQuery();
         $query->setHint(
             Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+            'Positibe\\Bundle\\CmfBundle\\Doctrine\\Query\\TranslationWalker'
         );
+        if ($this->locale) {
+            $query->setHint(
+                TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+                $this->locale // take locale from session or request etc.
+            );
+
+            $query->setHint(
+                TranslatableListener::HINT_FALLBACK,
+                1 // fallback to default values in case if record is not translated
+            );
+        }
 
         return $query;
     }

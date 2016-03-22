@@ -12,11 +12,13 @@ namespace Positibe\Bundle\CmfBundle\Repository;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Gedmo\Translatable\TranslatableListener;
 use Positibe\Bundle\OrmContentBundle\Entity\Page;
 use Positibe\Bundle\OrmContentBundle\Entity\Traits\PageRepositoryTrait;
 use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
 use Positibe\Bundle\OrmRoutingBundle\Entity\HasRoutesRepositoryInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 
 /**
@@ -28,6 +30,16 @@ use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 class PageRepository extends EntityRepository implements HasMenuRepositoryInterface, HasRoutesRepositoryInterface
 {
     use PageRepositoryTrait;
+
+    private $locale;
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
 
     public function createNewByParentName($name)
     {
@@ -59,11 +71,23 @@ class PageRepository extends EntityRepository implements HasMenuRepositoryInterf
     public function getQuery(QueryBuilder $qb)
     {
         $query = $qb->getQuery();
+
+        if ($this->locale) {
+            $query->setHint(
+                TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+                $this->locale // take locale from session or request etc.
+            );
+
+            $query->setHint(
+                TranslatableListener::HINT_FALLBACK,
+                1 // fallback to default values in case if record is not translated
+            );
+        }
+
         $query->setHint(
             Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+            'Positibe\\Bundle\\CmfBundle\\Doctrine\\Query\\TranslationWalker'
         );
-
         return $query;
     }
 
