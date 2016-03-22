@@ -18,7 +18,6 @@ use Positibe\Bundle\OrmContentBundle\Entity\Traits\PageRepositoryTrait;
 use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
 use Positibe\Bundle\OrmRoutingBundle\Entity\HasRoutesRepositoryInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 
 /**

@@ -14,7 +14,6 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\DefaultView;
 use Positibe\Bundle\CmfBundle\Pagerfanta\Template\MetronicTemplate;
-use WhiteOctober\PagerfantaBundle\View\TranslatedView;
 
 
 /**
