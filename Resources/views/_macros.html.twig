@@ -7,7 +7,7 @@
         <div class="text-right">
             {% if paginator | length >  10 %}
                 <div class="pagination text-left" style="position: relative">
-                    {{ sylius_resource_paginate(paginator, [10, 30, 50]) }}
+                    {{ sylius_resource_paginate(paginator, [10, 30, 50], {'template': 'PositibeCmfBundle:Pagination:_pagination_nb_results.html.twig'}) }}
                 </div>
             {% endif %}
         </div>

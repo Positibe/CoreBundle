@@ -33,7 +33,9 @@ class PositibeCmfExtension extends Extension
         $loader->load('twig_extension_services.yml');
         $loader->load('services.yml');
 
-        $this->addClassesToCompile(array(
+        if(isset($bundles['LuneticsLocalebundle']))
+        {
+            $this->addClassesToCompile(array(
                 'Lunetics\\LocaleBundle\\EventListener\\LocaleListener',
                 'Lunetics\\LocaleBundle\\LocaleGuesser\\LocaleGuesserManager',
                 'Lunetics\\LocaleBundle\\Matcher\\DefaultBestLocaleMatcher',
@@ -45,6 +47,8 @@ class PositibeCmfExtension extends Extension
                 'Positibe\\Bundle\\CmfBundle\\EventListener\\LocaleListener',
                 'Symfony\\Cmf\\Bundle\\CoreBundle\\EventListener\\PublishWorkflowListener',
                 'Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener'
-            ));
+              ));
+
+        }
     }
 }

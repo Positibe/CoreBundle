@@ -57,7 +57,7 @@
                         <select form="form_page_filter" name="criteria[category]" id="criteria_category"
                                 class="form-control input-sm">
                             {% set field_selected = app.request.get('criteria').category | default(null) %}
-                            {{ render(controller('PositibeCmfBundle:Filter:getEntityFilter', {'class':'PositibeOrmContentBundle:CategoryContent', 'selected': field_selected, 'field': 'name'})) }}
+                            {{ render(controller('PositibeCmfBundle:Filter:getEntityFilter', {'class':'PositibeOrmContentBundle:Category', 'selected': field_selected, 'field': 'name'})) }}
                         </select>
                     </th>
                     <th>

@@ -89,7 +89,7 @@ class LocaleMatcherListener extends LuneticsLocaleListener {
         $request = $event->getRequest();
         $request->setDefaultLocale($this->defaultLocale);
 
-        if (!$event->isMasterRequest() || ($this->excludedPattern && preg_match(sprintf('#%s#', $this->excludedPattern), $request->server->get('PATH_INFO')))) {
+        if (($this->excludedPattern && preg_match(sprintf('#%s#', $this->excludedPattern), $request->server->get('PATH_INFO')))) {
             return;
         }
 

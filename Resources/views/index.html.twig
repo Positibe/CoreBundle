@@ -99,13 +99,18 @@
         $(document).ready(function () {
             $('.apc-cache-clear').on('click', function (e) {
                 e.preventDefault();
-
+                $(this).text('{{ 'Limpiando cache' }}');
                 $(this).addClass('disabled');
 
                 $.ajax({
                     url: "{{ path('sonata_cache_apc', {'token': 's3cur3'}) }}",
                     success: function (data, textStatus, jqXHR) {
                         $('.apc-cache-clear').text('{{ 'Cache limpiada' }}');
+                    },
+                    error: function (error) {
+                        $('.apc-cache-clear').text('{{ 'No se pudo limpiar la cache' }}');
+                    },
+                    complete: function () {
                         setTimeout(function () {
                             $('.apc-cache-clear').text('{{ 'Limpiar cache' }}');
                             $('.apc-cache-clear').removeClass('disabled');
