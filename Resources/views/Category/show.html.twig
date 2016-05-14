@@ -1,7 +1,7 @@
 {% extends '@PositibeCmf/layout.html.twig' %}
 
 
-{% block title %}Categorías{% endblock %}
+{% block title %}Tipos de página{% endblock %}
 {% block subtitle %}{{ category.title }} {% endblock %}
 {% set menu_active = 'content' %}
 {% set content_menu = 'category' %}
@@ -9,7 +9,7 @@
 {% block breadcrumb_list %}
     <li>
         <i class="fa fa-angle-right"></i>
-        <a href="{{ path('positibe_category_index') }}">Categorías</a>
+        <a href="{{ path('positibe_category_index') }}">Tipos de página</a>
     </li>
     <li>
         <i class="fa fa-angle-right"></i>
@@ -22,7 +22,7 @@
         <div class="portlet-title">
             <div class="caption">
                 <p class="caption-subject font-green-sharp bold uppercase">
-                    <i class="fa fa-folder-open-o"></i> Categoría: {{ category.title }}
+                    <i class="fa fa-folder-open-o"></i> Tipos de página: {{ category.title }}
                 </p>
             </div>
             <div class="actions">
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="tabbable">
+            <div class="tabbable-line tabbable-full-width">
                 <ul class="nav nav-tabs nav-tabs-lg">
                     <li class="active">
                         <a href="#tab_1" data-toggle="tab" aria-expanded="true">

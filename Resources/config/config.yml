@@ -71,13 +71,14 @@ liip_imagine:
         image_thumbnail_small:
             filters:
                 thumbnail: { size: [50, 50], mode: outbound }
-ivory_ck_editor:
-    configs:
-        default:
-            toolbar: standard
-            filebrowserUploadRoute: "cmf_media_upload"
-            filebrowserBrowseRoute: "elfinder"
-            skin: "../../positibecmf/ckeditor/skins/office2013"
+#ivory_ck_editor:
+#    configs:
+#        default:
+#            toolbar: standard
+#            filebrowserUploadRoute: "cmf_media_upload"
+#            filebrowserBrowseRoute: "elfinder"
+#            skin: "../../positibecmf/ckeditor/skins/office2013"
+
 fm_elfinder:
     locale: %locale% # defaults to current request locale
     editor: ckeditor # other choices are tinymce or simple

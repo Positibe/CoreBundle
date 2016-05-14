@@ -27,6 +27,8 @@ use Doctrine\ORM\Query\AST\Join;
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  *
+ * @todo Remover esta clase cuando se actualice la versión de gedmo-extension
+ *
  * This class is a copy-paste from \Gedmo\Translatable\Query\TreeWalker\TranslationWalker to make it work with inherince
  *
  * The translation sql output walker makes it possible
@@ -292,6 +294,7 @@ class TranslationWalker extends SqlWalker
      * on used query components
      *
      * @todo: make it cleaner
+     *
      * @return string
      */
     private function prepareTranslatedComponents()

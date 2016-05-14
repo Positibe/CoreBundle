@@ -1,21 +1,24 @@
 {% block positibe_image_type_widget %}
+    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
     <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
 
     <div class="fileupload fileupload-new row" data-provides="fileupload">
         <div class="col-xs-4">
             <div class="fileupload-preview fileupload-exists thumbnail"
-                 style="max-width: 250px; max-height: 250px; line-height: 20px;">
+                 style="max-width: 150px; max-height: 150px; line-height: 20px;">
                 <img src="{{ (value is not empty and value.id ? (value.path | imagine_filter('image_thumbnail')) : asset('bundles/positibeormmedia/images/avatar.png')) }}">
             </div>
 
-            <div class="btn btn-info btn-sm fileinput-button">
+            <div class="btn btn-info btn-sm fileinput-button" style="margin-bottom: 10px">
                 <i class="fa fa-paperclip"></i>
                 {{ 'input.upload' | trans({}, 'PositibeOrmMediaBundle') }}
                 {{ form_widget(form.binaryContent, {'required':false, 'attr': {'style': 'cursor: pointer;' }}) }}
             </div>
-            <div class="input-sm pull-right">
+            <div class="input-sm btn-file-remove">
+                <div class="md-checkbox has-error">
                 {{ form_widget(form.unlink) }}
+                </div>
             </div>
 
         </div>
@@ -24,6 +27,7 @@
 {% endblock positibe_image_type_widget %}
 
 {% block positibe_media_type_widget %}
+    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
     <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
 
@@ -52,6 +56,7 @@
 {% endblock positibe_media_type_widget %}
 
 {% block positibe_gallery_type_widget %}
+    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
     <div class="tab-pane" id="form_publication_tab_image">
         <div class="form-group">
             <div class="pull-right">
@@ -87,6 +92,7 @@
 {% endblock %}
 
 {% block positibe_gallery_has_media_type_widget %}
+    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
     <div class="row">
         <div class="col-sm-4">
             {{ block('positibe_image_type_small_widget') }}
@@ -100,6 +106,7 @@
 
 {% block positibe_image_type_small_widget %}
     {% set form = form.media %}
+    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
     <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
 

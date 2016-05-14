@@ -3,7 +3,7 @@
 
 {% block title %}Páginas{% endblock %}
 {% block subtitle %}{{ page.title }} {% endblock %}
-{% set menu_active  = 'content'%}
+{% set menu_active  = 'content' %}
 {% set content_menu = 'page' %}
 
 {% block breadcrumb_list %}
@@ -22,7 +22,7 @@
         <div class="portlet-title">
             <div class="caption">
                 <p class="caption-subject font-green-sharp bold uppercase">
-                    <i class="fa fa-folder-open-o"></i> Categoría: {{ page.title }}
+                    <i class="fa fa-folder-open-o"></i> Página: {{ page.title }}
                 </p>
             </div>
             <div class="actions">
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="tabbable">
+            <div class="tabbable-line tabbable-full-width">
                 <ul class="nav nav-tabs nav-tabs-lg">
                     <li class="active">
                         <a href="#tab_1" data-toggle="tab" aria-expanded="true">
@@ -56,13 +56,16 @@
                     <div class="tab-pane active" id="tab_1">
                         <div class="pull-right ">
                             {% if is_granted( 'VIEW', page) %}
-                                <div class="label label-success"><i class="fa fa-calendar"></i> <strong>Publicado</strong></div>
+                                <div class="label label-success"><i class="fa fa-calendar"></i>
+                                    <strong>Publicado</strong></div>
                             {% else %}
-                                <div class="label label-danger"><i class="fa fa-calendar"></i> <strong>Despublicado</strong></div>
+                                <div class="label label-danger"><i class="fa fa-calendar"></i>
+                                    <strong>Despublicado</strong></div>
                             {% endif %}
                         </div>
                         <p>
-                            <img src="{% if page.image is not null %}{{ cmf_media_display_url(content.image, {'imagine_filter': 'page_big'}) }}{% endif %}" class="img-thumbnail pull-left" style="margin-right: 20px;">
+                            <img src="{% if page.image is not null %}{{ cmf_media_display_url(content.image, {'imagine_filter': 'page_big'}) }}{% endif %}"
+                                 class="img-thumbnail pull-left" style="margin-right: 20px;">
                             {{ page.body | default('-')| raw }}
                         </p>
 

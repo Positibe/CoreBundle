@@ -7,11 +7,11 @@ positibe:
         create: El Menu se ha creado con éxito.
         update: El Menu se ha actualizado con éxito.
         delete: El Menu se ha eliminado con éxito.
-    category_content:
+    category:
         create: La Categoría se ha creado con éxito.
         update: La Categoría se ha actualizado con éxito.
         delete: La Categoría se ha eliminado con éxito.
-    static_content:
+    page:
         create: La Página se ha creado con éxito.
         update: La Página se ha actualizado con éxito.
         delete: La Página se ha eliminado con éxito.

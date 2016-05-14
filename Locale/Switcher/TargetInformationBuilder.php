@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- *
- * @todo Mover a OrmRoutingBundle
  * Class TargetInformationBuilder
  * @package Lunetics\LocaleBundle\Switcher
  *

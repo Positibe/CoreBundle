@@ -10,7 +10,7 @@
     ],
     "homepage": "http://positibelabs.blogspot.com/bundles/cmf",
     "license": "Private",
-    "version": "0.3.0.0",
+    "version": "0.3.1.0",
     "authors": [
         {
             "name": "Pedro Carlos Abreu Jiménez",
@@ -31,12 +31,13 @@
     "suggestion": {
         "lunetics/locale-bundle": "2.4.*",
         "genemu/form-bundle": "~2.2.0",
-        "positibe/orm-block-bundle": "~0.0",
-        "positibe/orm-menu-bundle": "~0.0",
-        "positibe/orm-routing-bundle": "~0.0",
-        "positibe/orm-content-bundle": "~0.0",
-        "positibe/orm-seo-bundle": "~0.0",
-        "positibe/orm-media-bundle": "~0.0"
+        "positibe/orm-block-bundle": "~0.3",
+        "positibe/orm-menu-bundle": "~0.3",
+        "positibe/orm-routing-bundle": "~0.3",
+        "positibe/orm-content-bundle": "~0.3",
+        "positibe/orm-seo-bundle": "~0.3",
+        "positibe/orm-media-bundle": "~0.3",
+        "positibe/news-bundle": "~0.3"
     },
     "autoload": {
         "psr-4": {"Positibe\\Bundle\\CmfBundle\\": ""}
