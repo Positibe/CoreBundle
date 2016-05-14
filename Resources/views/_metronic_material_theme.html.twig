@@ -1,0 +1,70 @@
+{% extends 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block form_row -%}
+    {% spaceless %}
+        <div class="form-group form-md-line-input {% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+            {{ form_label(form) }}
+            <div class="{{ block('form_group_class') }}">
+                {{ form_widget(form) }}
+                <div class="form-control-focus">
+                </div>
+                {{ form_errors(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{%- endblock form_row %}
+
+{% block checkbox_row -%}
+    <div class="form-group form-md-line-input">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="md-checkbox-list">
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+            </div>
+        </div>
+    </div>
+{%- endblock checkbox_row %}
+
+{% block checkbox_widget -%}
+    {% set parent_label_class = parent_label_class|default('') %}
+    {% if 'checkbox-inline' in parent_label_class %}
+        {{ form_label(form, null, { widget: parent() }) }}
+    {% else %}
+        {{ form_label(form, null, { widget: parent() }) }}
+    {% endif %}
+{%- endblock checkbox_widget %}
+
+{% block checkbox_radio_label %}
+    {# Do no display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if parent_label_class is defined %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <div class="md-checkbox">
+            <input type="checkbox"
+                   class="md-check" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+
+            <label for="{{ id }}" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
+            >
+            <span class="inc"></span>
+            <span class="check"></span>
+            <span class="box"></span>
+            {{ label|trans({}, translation_domain) }}
+            </label>
+        </div>
+    {% endif %}
+{% endblock checkbox_radio_label %}
+
+{% block radio_row -%}
+    <div class="form-group form-md-line-input {% if not valid %} has-error{% endif %}">
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+
+{%- endblock radio_row %}
