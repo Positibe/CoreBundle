@@ -40,7 +40,6 @@
 
 {% block javascripts %}
     {{ include('@PositibeCmf/SubMenu/_form_javascript.html.twig') }}
-    {{ include('@PositibeCmf/_form_chosen_javascript.html.twig') }}
     <script>
         jQuery('#positibe_menu_node_locale').on('change', function (e) {
             location.replace(
@@ -48,9 +47,4 @@
             );
         });
     </script>
-{% endblock %}
-
-
-{% block stylesheets %}
-    {{ include('@PositibeCmf/_form_chosen_stylesheet.html.twig') }}
 {% endblock %}

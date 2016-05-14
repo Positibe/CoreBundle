@@ -27,13 +27,8 @@
     {{ delete_confirm('positibe_content_block_remove', path('positibe_content_block_delete', {'name': content_block.name})) }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ include('@PositibeCmf/_datepicker_resources.html.twig') }}
-    {{ include('@PositibeCmf/_form_chosen_stylesheet.html.twig') }}
-{% endblock %}
 
 {% block javascripts %}
-    {{ include('@PositibeCmf/_form_chosen_javascript.html.twig') }}
     {{ include('@PositibeCmf/Block/_form_always_select.html.twig') }}
     <script>
         jQuery('#positibe_content_block_locale').on('change', function (e) {

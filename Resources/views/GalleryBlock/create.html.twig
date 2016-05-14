@@ -22,13 +22,8 @@
     {{ form_end(form) }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ include('@PositibeCmf/_datepicker_resources.html.twig') }}
-    {{ include('@PositibeCmf/_form_chosen_stylesheet.html.twig') }}
-{% endblock %}
 
 {% block javascripts %}
     {{ include('@PositibeCmf/Block/_form_always_select.html.twig') }}
-    {{ include('@PositibeCmf/_form_chosen_javascript.html.twig') }}
     {{ include('@PositibeCmf/_form_collections.html.twig') }}
 {% endblock %}

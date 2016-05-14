@@ -26,10 +26,6 @@
     {{ delete_confirm('positibe_category_remove', path('positibe_category_delete', {'name': category.name}) ) }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ include('@PositibeCmf/_datepicker_resources.html.twig') }}
-{% endblock %}
-
 {% block javascripts %}
     <script>
         jQuery('#positibe_category_locale').on('change', function (e) {
