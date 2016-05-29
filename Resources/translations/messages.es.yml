@@ -1,3 +1,12 @@
 input:
   upload: Añadir archivo
   unlink: Quitar
+action:
+    back: Atras
+    save: Guardar
+    cancel: Cancelar
+    actions: Acciones
+    filter: Filtrar
+    show: Detalles
+    edit: Editar
+    remove: Eliminar
