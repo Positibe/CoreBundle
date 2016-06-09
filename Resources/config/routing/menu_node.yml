@@ -33,6 +33,9 @@ positibe_submenu_update:
         _sylius:
             template: PositibeCmfBundle:SubMenu:update.html.twig
             form: positibe_menu_node
+            repository:
+                method: findOneByNameAndParent
+                arguments: [$name, $parent]
             criteria:
                 name: $name
             redirect:
@@ -45,6 +48,9 @@ positibe_submenu_delete:
     defaults:
         _controller: positibe.controller.menu:deleteAction
         _sylius:
+            repository:
+                method: findOneByNameAndParent
+                arguments: [$name, $parent]
             criteria:
                 name: $name
             redirect:
@@ -57,8 +63,9 @@ positibe_submenu_move_up:
     defaults:
         _controller: positibe.controller.menu:moveUpAction
         _sylius:
-            criteria:
-                name: $name
+            repository:
+                method: findOneByNameAndParent
+                arguments: [$name, $parent]
             redirect: referer
 
 positibe_submenu_move_down:
@@ -67,6 +74,7 @@ positibe_submenu_move_down:
     defaults:
         _controller: positibe.controller.menu:moveDownAction
         _sylius:
-            criteria:
-                name: $name
+            repository:
+                method: findOneByNameAndParent
+                arguments: [$name, $parent]
             redirect: referer

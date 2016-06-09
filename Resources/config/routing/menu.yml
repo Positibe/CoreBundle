@@ -4,6 +4,7 @@ positibe_menu_create:
     defaults:
         _controller: positibe.controller.menu:createAction
         _sylius:
+            template: PositibeCmfBundle:Menu:create.html.twig
             criteria:
                 linkType: 'root'
             redirect:
@@ -16,6 +17,7 @@ positibe_menu_index:
    defaults:
        _controller: positibe.controller.menu:indexAction
        _sylius:
+           template: PositibeCmfBundle:Menu:index.html.twig
            criteria:
                linkType: 'root'
 
@@ -25,6 +27,7 @@ positibe_menu_update:
     defaults:
         _controller: positibe.controller.menu:updateAction
         _sylius:
+            template: PositibeCmfBundle:Menu:update.html.twig
             criteria:
                 name: $name
                 linkType: 'root'
