@@ -12,6 +12,7 @@ namespace Positibe\Bundle\CmfBundle\Controller;
 
 use Positibe\Bundle\OrmContentBundle\Entity\Abstracts\AbstractPage;
 use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface;
+use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController as SyliusResourceController;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
@@ -28,16 +29,15 @@ class TranslatableController extends SyliusResourceController
     /**
      * Load the correct locale for seo and menus depend of data_locale http parameter
      *
-     * @param Request $request
-     * @param array $criteria
-     * @return object|void
+     * @param RequestConfiguration $configuration
+     * @return AbstractPage|\Sylius\Component\Resource\Model\ResourceInterface
      */
-    public function findOr404(Request $request, array $criteria = array())
+    public function findOr404(RequestConfiguration $configuration)
     {
         /** @var AbstractPage $page */
-        $page = parent::findOr404($request, $criteria);
+        $page = parent::findOr404($configuration);
 
-        if ($page instanceof TranslatableInterface && $dataLocale = $request->get('data_locale')) {
+        if ($page instanceof TranslatableInterface && $dataLocale = $configuration->getRequest()->get('data_locale')) {
             $page->setLocale($dataLocale);
 
             if ($page instanceof SeoAwareInterface && $seoMetadata = $page->getSeoMetadata()) {
@@ -56,5 +56,36 @@ class TranslatableController extends SyliusResourceController
         }
 
         return $page;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $movement
+     *
+     * @return RedirectResponse
+     */
+    protected function move(Request $request, $movement)
+    {
+        $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
+        $resource = $this->findOr404($configuration);
+
+        $position = $configuration->getSortablePosition();
+        $accessor = PropertyAccess::createPropertyAccessor();
+        $accessor->setValue(
+          $resource,
+          $position,
+          $accessor->getValue($resource, $position) + $movement
+        );
+
+        $this->manager->persist($resource);
+        $this->manager->flush();
+
+        if (!$configuration->isHtmlRequest()) {
+            return $this->viewHandler->handle($configuration, View::create($resource, 204));
+        }
+
+        $this->flashHelper->addSuccessFlash($configuration, 'move', $resource);
+
+        return $this->redirectHandler->redirectToIndex($configuration, $resource);
     }
 } 

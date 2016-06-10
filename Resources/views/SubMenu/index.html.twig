@@ -76,7 +76,7 @@
                                 {# Los orden estan invertidos en funcion de la lógica visual para lista ascendente #}
                                 {{ buttons.move(path('positibe_submenu_move_up', {'parent': menu.parent.name,'name': menu.name}), 'down',
                                 loop.first and not menus.hasPreviousPage, loop.last and not menus.hasNextPage) }}
-                                {{ buttons.move(path('positibe_submenu_move_down', {'parent': menu.parent.id,'name': menu.name}), 'up',
+                                {{ buttons.move(path('positibe_submenu_move_down', {'parent': menu.parent.name,'name': menu.name}), 'up',
                                 loop.first and not menus.hasPreviousPage, loop.last and not menus.hasNextPage) }}
                             </div>
 

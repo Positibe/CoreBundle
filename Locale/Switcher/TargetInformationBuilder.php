@@ -1,12 +1,5 @@
 <?php
-/**
- * This file is part of the LuneticsLocaleBundle package.
- *
- * <https://github.com/lunetics/LocaleBundle/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that is distributed with this source code.
- */
+
 namespace Positibe\Bundle\CmfBundle\Locale\Switcher;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +8,8 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Class TargetInformationBuilder
  * @package Lunetics\LocaleBundle\Switcher
+ *
+ * @todo revisar la ultima versión de LunelicsLocaleBundle
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

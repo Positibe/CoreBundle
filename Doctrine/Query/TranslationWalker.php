@@ -27,7 +27,7 @@ use Doctrine\ORM\Query\AST\Join;
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  *
- * @todo Remover esta clase cuando se actualice la versión de gedmo-extension
+ * @deprecated Remover esta clase cuando se actualice la versión de gedmo-extension
  *
  * This class is a copy-paste from \Gedmo\Translatable\Query\TreeWalker\TranslationWalker to make it work with inherince
  *
