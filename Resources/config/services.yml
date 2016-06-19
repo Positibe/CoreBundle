@@ -9,3 +9,11 @@ services:
         class: Positibe\Bundle\CmfBundle\Pagerfanta\View\MetronicView
         public: false
         tags: [{ name: pagerfanta.view, alias: positibe_metronic }]
+
+    positibe.action_block_service:
+            class: Positibe\Bundle\CmfBundle\Block\ActionBlockService
+            arguments: ['action_block', @templating]
+            tags:
+                - { name: sonata.block, alias: search_block}
+            calls:
+                - [setContainer, [@service_container]]

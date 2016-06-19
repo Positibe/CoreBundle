@@ -20,7 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
-class PositibeCmfCompilerPass implements CompilerPassInterface {
+class PositibeCmfCompilerPass implements CompilerPassInterface
+{
     /**
      * You can modify the container here before it is dumped to PHP code.
      *
@@ -33,7 +34,22 @@ class PositibeCmfCompilerPass implements CompilerPassInterface {
         $sluggableListener = $container->getDefinition('stof_doctrine_extensions.listener.sluggable');
         $sluggableListener->addMethodCall('addManagedFilter', array('softdeleteable'));
 
-        $container->setParameter('lunetics_locale.request_listener.class', 'Positibe\Bundle\CmfBundle\EventListener\LocaleMatcherListener');
+        $container->setParameter(
+          'lunetics_locale.request_listener.class',
+          'Positibe\Bundle\CmfBundle\EventListener\LocaleMatcherListener'
+        );
+
+        //@fixme to remove in Sylius 0.18 or higher
+        $container->setParameter(
+          'sylius.resource_controller.single_resource_provider.class',
+          'Positibe\Bundle\CmfBundle\Controller\SingleResourceProvider'
+        );
+
+        //@fixme to remove in Sylius 0.18 or higher
+        $container->setParameter(
+          'sylius.resource_controller.request_configuration.class',
+          '\Positibe\Bundle\CmfBundle\Controller\RequestConfiguration'
+        );
     }
 
 } 

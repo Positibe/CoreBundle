@@ -10,13 +10,16 @@
 
 namespace Positibe\Bundle\CmfBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Positibe\Bundle\OrmContentBundle\Entity\Abstracts\AbstractPage;
 use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface;
 use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController as SyliusResourceController;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class TranslatableController
@@ -88,4 +91,6 @@ class TranslatableController extends SyliusResourceController
 
         return $this->redirectHandler->redirectToIndex($configuration, $resource);
     }
+
+
 } 

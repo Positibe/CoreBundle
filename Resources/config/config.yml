@@ -19,6 +19,10 @@ twig:
 
 sonata_core: ~
 
+sonata_block:
+    blocks:
+        positibe.action_block_service:
+
 stof_doctrine_extensions:
     default_locale: %locale%
     translation_fallback: true
