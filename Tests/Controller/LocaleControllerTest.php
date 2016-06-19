@@ -41,6 +41,11 @@ class LocaleControllerTest extends WebTestCase
               $locale
             );
 
+            $this->assertEquals(
+              $client->getRequest()->attributes->get('_locale'),
+              $locale
+            );
+
         }
     }
 } 
