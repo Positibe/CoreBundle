@@ -27,10 +27,10 @@ class RequestConfiguration extends SyliusRequestConfiguration
      */
     public function getTemplate($name)
     {
-        $template = $this->parameters->get('template', $this->getDefaultTemplate($name.'.html'));
+        $template = $this->getParameters()->get('template', $this->getDefaultTemplate($name.'.html'));
         if (null === $template) {
             throw new \RuntimeException(
-                sprintf('Could not resolve template for resource "%s".', $this->metadata->getAlias())
+                sprintf('Could not resolve template for resource "%s".', $this->getMetadata()->getAlias())
             );
         }
 
@@ -45,10 +45,10 @@ class RequestConfiguration extends SyliusRequestConfiguration
      */
     public function getRedirectReferer()
     {
-        $redirect = $this->parameters->get('redirect');
-        $referer = $this->request->headers->get('referer');
+        $redirect = $this->getParameters()->get('redirect');
+        $referer = $this->getRequest()->headers->get('referer');
 
-        if ($forceRedirect = $this->request->query->get('redirect')) {
+        if ($forceRedirect = $this->getRequest()->query->get('redirect')) {
             return $forceRedirect;
         }
 

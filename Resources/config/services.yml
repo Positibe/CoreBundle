@@ -1,6 +1,6 @@
 services:
     positibe_cmf.theme_extension:
-        class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeThemeExtension
+        class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension
         arguments: [@service_container]
         tags:
           - { name: twig.extension }
