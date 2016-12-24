@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Controller;
+namespace Positibe\Bundle\CoreBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class FilterController
- * @package Positibe\Bundle\CmfBundle\Controller
+ * @package Positibe\Bundle\CoreBundle\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -31,7 +31,7 @@ class FilterController extends Controller
         }
 
         return $this->render(
-            '@PositibeCmf/_filter_list_entity.html.twig',
+            '@PositibeCore/_filter_list_entity.html.twig',
             array(
                 'entities' => $entities,
                 'field_selected' => $selected,
@@ -50,7 +50,7 @@ class FilterController extends Controller
         }
 
         return $this->render(
-            '@PositibeCmf/_filter_list_method.html.twig',
+            '@PositibeCore/_filter_list_method.html.twig',
             array(
                 'entities' => $entities,
                 'field_selected' => $selected
@@ -67,7 +67,7 @@ class FilterController extends Controller
         }
 
         return $this->render(
-            '@PositibeCmf/_filter_list_enum.html.twig',
+            '@PositibeCore/_filter_list_enum.html.twig',
             array(
                 'entities' => $entities,
                 'field_selected' => $selected

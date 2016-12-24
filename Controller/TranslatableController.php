@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Controller;
+namespace Positibe\Bundle\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
 use Positibe\Bundle\OrmContentBundle\Entity\Abstracts\AbstractPage;
@@ -23,7 +23,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class TranslatableController
- * @package Positibe\Bundle\CmfBundle\Controller
+ * @package Positibe\Bundle\CoreBundle\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

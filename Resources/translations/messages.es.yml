@@ -1,6 +1,8 @@
 input:
   upload: Añadir archivo
   unlink: Quitar
+sylius.move_down: Bajar
+sylius.move_up: Subir
 action:
     back: Atras
     save: Guardar

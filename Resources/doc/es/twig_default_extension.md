@@ -19,7 +19,7 @@ Agrega a tu config.yml la configuración:
     # app/config/config.yml
 
     imports:
-        - { resource: @PositibeCmfBundle/Resources/config/services/twig_extension_services.yml }
+        - { resource: @PositibeCoreBundle/Resources/config/services/twig_extension_services.yml }
 
 **Nota:** La configuración anterior solo habilita el uso de las extensiones ``truncate``,
  ``wordwrap`` y ``localizeddate``. Pero una vez instalada puede agregar servicios para otras extensiones. Ver

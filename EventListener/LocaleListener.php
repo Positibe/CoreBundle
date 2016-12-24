@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\EventListener;
+namespace Positibe\Bundle\CoreBundle\EventListener;
 
 use Stof\DoctrineExtensionsBundle\EventListener\LocaleListener as StofLocaleListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;

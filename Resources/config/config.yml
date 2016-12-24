@@ -9,12 +9,12 @@ imports:
 parameters:
     locale: es
     locales: [es, en, fr]
-    stof_doctrine_extensions.event_listener.locale.class: Positibe\Bundle\CmfBundle\EventListener\LocaleListener
+    stof_doctrine_extensions.event_listener.locale.class: Positibe\Bundle\CoreBundle\EventListener\LocaleListener
 
 twig:
     form:
         resources:
-            - 'PositibeCmfBundle::_form_media_widgets.html.twig'
+            - 'PositibeCoreBundle::_form_media_widgets.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'
 
 sonata_core: ~
@@ -46,7 +46,7 @@ stof_doctrine_extensions:
 
 lunetics_locale:
     switcher:
-        template: PositibeCmfBundle:Locale:switcher.html.twig
+        template: PositibeCoreBundle:Locale:switcher.html.twig
 #        show_current_locale: false
 #        use_controller: true                # Must be set to true if you want to use the controller. Defaults to false
 #    #    use_referrer: false                 # Redirect to the origin url from where the switcher was used. Defaults to true

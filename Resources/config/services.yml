@@ -1,17 +1,17 @@
 services:
-    positibe_cmf.locale_switcher_extension:
-        class: Positibe\Bundle\CmfBundle\Twig\Extension\LocaleSwitcherExtension
+    positibe_cmf.theme_extension:
+        class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeThemeExtension
         arguments: [@service_container]
         tags:
           - { name: twig.extension }
 
     positibe_cmf.metronic_pagerfanta_view:
-        class: Positibe\Bundle\CmfBundle\Pagerfanta\View\MetronicView
+        class: Positibe\Bundle\CoreBundle\Pagerfanta\View\MetronicView
         public: false
         tags: [{ name: pagerfanta.view, alias: positibe_metronic }]
 
     positibe.action_block_service:
-            class: Positibe\Bundle\CmfBundle\Block\ActionBlockService
+            class: Positibe\Bundle\CoreBundle\Block\ActionBlockService
             arguments: ['action_block', @templating]
             tags:
                 - { name: sonata.block, alias: search_block}

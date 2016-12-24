@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Tests\Controller;
+namespace Positibe\Bundle\CoreBundle\Tests\Controller;
 
 use Positibe\Bundle\TestingBundle\Test\BaseCrudTestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class PageControllerTest
- * @package Positibe\Bundle\CmfBundle\Tests\Controller
+ * @package Positibe\Bundle\CoreBundle\Tests\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

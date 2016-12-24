@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Tests\Controller;
+namespace Positibe\Bundle\CoreBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
 /**
  * Class LocaleControllerTest
- * @package Positibe\Bundle\CmfBundle\Tests\Controller
+ * @package Positibe\Bundle\CoreBundle\Tests\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

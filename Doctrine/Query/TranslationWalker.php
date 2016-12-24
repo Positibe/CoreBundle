@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Doctrine\Query;
+namespace Positibe\Bundle\CoreBundle\Doctrine\Query;
 
 use Gedmo\Translatable\Mapping\Event\Adapter\ORM as TranslatableEventAdapter;
 use Gedmo\Translatable\TranslatableListener;
@@ -23,7 +23,7 @@ use Doctrine\ORM\Query\AST\Join;
 
 /**
  * Class TranslationWalker
- * @package Positibe\Bundle\CmfBundle\Doctrine\Query
+ * @package Positibe\Bundle\CoreBundle\Doctrine\Query
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  *

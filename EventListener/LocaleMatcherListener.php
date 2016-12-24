@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\EventListener;
+namespace Positibe\Bundle\CoreBundle\EventListener;
 
 use Lunetics\LocaleBundle\Event\FilterLocaleSwitchEvent;
 use Lunetics\LocaleBundle\EventListener\LocaleListener as LuneticsLocaleListener;
@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Class LocaleMatcherListener
- * @package Positibe\Bundle\CmfBundle\EventListener
+ * @package Positibe\Bundle\CoreBundle\EventListener
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

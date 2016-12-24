@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Repository;
+namespace Positibe\Bundle\CoreBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 
 
 /**
  * Class FilterRepository
- * @package Positibe\Bundle\CmfBundle\Entity
+ * @package Positibe\Bundle\CoreBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -27,15 +27,16 @@ class FilterRepository
      * @param QueryBuilder $queryBuilder
      * @param $criteria
      * @param $field
+     * @param string $alias
      * @return mixed
      */
-    public static function filterLike(QueryBuilder $queryBuilder, $criteria, $field)
+    public static function filterLike(QueryBuilder $queryBuilder, &$criteria, $field, $alias = 'o')
     {
         if (isset($criteria[$field])) {
             if (!empty($criteria[$field])) {
-                $queryBuilder->andWhere(sprintf('o.%s LIKE :%s', $field, $field))->setParameter(
-                  $field,
-                  '%' . $criteria[$field] . '%'
+                $queryBuilder->andWhere(sprintf('%s.%s LIKE :%s', $alias, $field, $field))->setParameter(
+                    $field,
+                    '%'.$criteria[$field].'%'
                 );
             }
             unset($criteria[$field]);
@@ -51,20 +52,64 @@ class FilterRepository
      * @param $criteria
      * @param $field
      * @param $enumTypeName
+     * @param bool|false $isJoined
+     * @param string $alias
      * @return mixed
      */
-    public static function filterEnum(QueryBuilder $queryBuilder, $criteria, $field, $enumTypeName)
-    {
+    public static function filterEnum(
+        QueryBuilder $queryBuilder,
+        &$criteria,
+        $field,
+        $enumTypeName,
+        $isJoined = false,
+        $alias = 'o'
+    ) {
         if (isset($criteria[$field])) {
             if (!empty($criteria[$field])) {
-
+                if (!$isJoined) {
+                    $queryBuilder->join(sprintf('%s.%s', $alias, $field), 'enum')->join('enum.type', 'enumType');
+                }
                 $queryBuilder
-                  ->join('o.' . $field, 'enum')
-                  ->join('enum.type', 'enumType')
-                  ->andWhere('enumType.name = :enumType')
-                  ->andWhere(sprintf('enum.text LIKE :%s', $field))
-                  ->setParameter($field, '%' . $criteria[$field] . '%')
-                  ->setParameter('enumType', $enumTypeName);
+                    ->andWhere('enumType.text = :enumType')
+                    ->andWhere(sprintf('enum.name LIKE :%s', $field))
+                    ->setParameter($field, '%'.$criteria[$field].'%')
+                    ->setParameter('enumType', $enumTypeName);
+            }
+            unset($criteria[$field]);
+        }
+
+        return $criteria;
+    }
+
+    /**
+     * Filter an enumerator field from PositibeEnumBundle
+     *
+     * @param QueryBuilder $queryBuilder
+     * @param $criteria
+     * @param $field
+     * @param $enumTypeName
+     * @param bool|false $isJoined
+     * @param string $alias
+     * @return mixed
+     */
+    public static function filterEnumByName(
+        QueryBuilder $queryBuilder,
+        &$criteria,
+        $field,
+        $enumTypeName,
+        $isJoined = false,
+        $alias = 'o'
+    ) {
+        if (isset($criteria[$field])) {
+            if (!empty($criteria[$field])) {
+                if (!$isJoined) {
+                    $queryBuilder->join(sprintf('%s.%s', $alias, $field), 'enum')->join('enum.type', 'enumType');
+                }
+                $queryBuilder
+                    ->andWhere('enumType.name = :enumType')
+                    ->andWhere(sprintf('enum.name LIKE :%s', $field))
+                    ->setParameter($field, '%'.$criteria[$field].'%')
+                    ->setParameter('enumType', $enumTypeName);
             }
             unset($criteria[$field]);
         }
@@ -80,23 +125,30 @@ class FilterRepository
      * @param $field
      * @param $fieldFrom
      * @param $fieldTo
+     * @param string $alias
      * @return mixed
      */
-    public static function filterRangeDate(QueryBuilder $queryBuilder, $criteria, $field, $fieldFrom, $fieldTo)
-    {
+    public static function filterRangeDate(
+        QueryBuilder $queryBuilder,
+        &$criteria,
+        $field,
+        $fieldFrom,
+        $fieldTo,
+        $alias = 'o'
+    ) {
         if (isset($criteria[$fieldFrom]) || isset($criteria[$fieldTo]) && $criteria[$fieldTo] != '') {
             if (!empty($criteria[$fieldFrom])) {
-                $from = $criteria[$fieldFrom] . ' 00:00:00';
+                $from = $criteria[$fieldFrom].' 00:00:00';
                 $queryBuilder
-                  ->andWhere($queryBuilder->expr()->gte(sprintf('o.%s', $field), sprintf(':%s', $fieldFrom)))
-                  ->setParameter($fieldFrom, \DateTime::createFromFormat('d/m/Y H:i:s', $from));
+                    ->andWhere($queryBuilder->expr()->gte(sprintf('%s.%s', $alias, $field), sprintf(':%s', $fieldFrom)))
+                    ->setParameter($fieldFrom, \DateTime::createFromFormat('d/m/Y H:i:s', $from));
             }
             unset($criteria[$fieldFrom]);
             if (!empty($criteria[$fieldTo])) {
-                $to = $criteria[$fieldTo] . ' 23:59:59';
+                $to = $criteria[$fieldTo].' 23:59:59';
                 $queryBuilder
-                  ->andWhere($queryBuilder->expr()->lte(sprintf('o.%s', $field), sprintf(':%s', $fieldTo)))
-                  ->setParameter($fieldTo, \DateTime::createFromFormat('d/m/Y H:i:s', $to));
+                    ->andWhere($queryBuilder->expr()->lte(sprintf('%s.%s', $alias, $field), sprintf(':%s', $fieldTo)))
+                    ->setParameter($fieldTo, \DateTime::createFromFormat('d/m/Y H:i:s', $to));
             }
             unset($criteria[$fieldTo]);
         }
@@ -111,25 +163,27 @@ class FilterRepository
      * @param $criteria
      * @param $field
      * @param $toOneField
-     * @param bool $isJoined
+     * @param bool|false $isJoined
+     * @param string $alias
      * @return mixed
      */
     public static function filterToOneField(
-      QueryBuilder $queryBuilder,
-      $criteria,
-      $field,
-      $toOneField,
-      $isJoined = false
+        QueryBuilder $queryBuilder,
+        &$criteria,
+        $field,
+        $toOneField,
+        $isJoined = false,
+        $alias = 'o'
     ) {
         if (isset($criteria[$field])) {
             if (!empty($criteria[$field])) {
                 if (!$isJoined) {
                     $queryBuilder
-                      ->join(sprintf('o.%s', $toOneField), $toOneField);
+                        ->join(sprintf('%s.%s', $alias, $toOneField), $toOneField);
                 }
                 $queryBuilder
-                  ->andWhere(sprintf('%s.%s LIKE :%s', $toOneField, $field, $toOneField . '_' . $field))
-                  ->setParameter($toOneField . '_' . $field, '%' . $criteria[$field] . '%');
+                    ->andWhere(sprintf('%s.%s LIKE :%s', $toOneField, $field, $toOneField.'_'.$field))
+                    ->setParameter($toOneField.'_'.$field, '%'.$criteria[$field].'%');
             }
             unset($criteria[$field]);
         }

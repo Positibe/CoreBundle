@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Repository;
+namespace Positibe\Bundle\CoreBundle\Repository;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /***
  * Class LocaleRepositoryTrait
- * @package Positibe\Bundle\CmfBundle\Repository
+ * @package Positibe\Bundle\CoreBundle\Repository
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

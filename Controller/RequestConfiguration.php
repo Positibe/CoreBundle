@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Controller;
+namespace Positibe\Bundle\CoreBundle\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration as SyliusRequestConfiguration;
 
 /**
  * Class RequestConfiguration
- * @package Positibe\Bundle\CmfBundle\Controller
+ * @package Positibe\Bundle\CoreBundle\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -27,13 +27,38 @@ class RequestConfiguration extends SyliusRequestConfiguration
      */
     public function getTemplate($name)
     {
-        $template = $this->parameters->get('template', $this->getDefaultTemplate($name . '.html'));
+        $template = $this->parameters->get('template', $this->getDefaultTemplate($name.'.html'));
         if (null === $template) {
             throw new \RuntimeException(
-              sprintf('Could not resolve template for resource "%s".', $this->metadata->getAlias())
+                sprintf('Could not resolve template for resource "%s".', $this->metadata->getAlias())
             );
         }
 
         return $template;
     }
-} 
+
+    /**
+     * Get redirect referer, This will detected by configuration
+     * If not exists, The `referrer` from headers will be used.
+     *
+     * @return null|string
+     */
+    public function getRedirectReferer()
+    {
+        $redirect = $this->parameters->get('redirect');
+        $referer = $this->request->headers->get('referer');
+
+        if ($forceRedirect = $this->request->query->get('redirect')) {
+            return $forceRedirect;
+        }
+
+        if (!is_array($redirect) || empty($redirect['referer'])) {
+            return $referer;
+        }
+
+        if ($redirect['referer'] === true) {
+            return $referer;
+        }
+    }
+
+}

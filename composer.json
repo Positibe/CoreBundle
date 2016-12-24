@@ -1,50 +1,52 @@
 {
-    "name": "positibe/cmf-bundle",
-    "type": "symfony-bundle",
-    "description": "Symfony PositibeCmfBundle",
-    "keywords": [
-        "cmf",
-        "content management framework",
-        "positibe",
-        "positibelabs"
-    ],
-    "homepage": "http://positibelabs.blogspot.com/bundles/cmf",
-    "license": "MIT",
-    "version": "0.4.1.0",
-    "authors": [
-        {
-            "name": "Pedro Carlos Abreu Jiménez",
-            "email": "pcabreus@gmail.com",
-            "homepage": "https://github.com/pcabreus"
-        },
-        {
-            "name": "PositibeLabs Cooperative",
-            "homepage": "https://github.com/positibelabs"
-        }
-    ],
-    "require": {
-        "symfony/framework-bundle": "~2.7",
-        "stof/doctrine-extensions-bundle": "1.2.*",
-        "twig/extensions": "~1.0",
-        "sylius/resource-bundle": "0.17.*",
-        "lunetics/locale-bundle": "2.4.*"
+  "name": "positibe/core-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony PositibeCoreBundle",
+  "keywords": [
+    "core",
+    "content management framework",
+    "positibe",
+    "positibelabs"
+  ],
+  "homepage": "http://positibelabs.com/bundles/core",
+  "license": "MIT",
+  "version": "1.0.0-beta1",
+  "authors": [
+    {
+      "name": "Pedro Carlos Abreu Jiménez",
+      "email": "pcabreus@gmail.com",
+      "homepage": "https://github.com/pcabreus"
     },
-    "suggestion": {
-        "genemu/form-bundle": "~2.2.0",
-        "positibe/orm-block-bundle": "~0.4",
-        "positibe/orm-menu-bundle": "~0.4",
-        "positibe/orm-routing-bundle": "~0.4",
-        "positibe/orm-content-bundle": "~0.4",
-        "positibe/orm-seo-bundle": "~0.4",
-        "positibe/orm-media-bundle": "~0.4",
-        "positibe/news-bundle": "~0.2"
-    },
-    "autoload": {
-        "psr-4": {"Positibe\\Bundle\\CmfBundle\\": ""}
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.4.x-dev"
-        }
+    {
+      "name": "PositibeLabs Group",
+      "homepage": "https://github.com/Positibe"
     }
+  ],
+  "require": {
+    "symfony/framework-bundle": "~2.8|~3.0",
+    "gedmo/doctrine-extensions": "~2.4",
+    "stof/doctrine-extensions-bundle": "1.2.*",
+    "twig/extensions": "~1.0",
+    "sylius/resource-bundle": "~1.0.0-beta1",
+    "lunetics/locale-bundle": "2.4.*"
+  },
+  "suggestion": {
+    "positibe/orm-block-bundle": "~0.4",
+    "positibe/orm-menu-bundle": "~0.4",
+    "positibe/orm-routing-bundle": "~0.4",
+    "positibe/orm-content-bundle": "~0.4",
+    "positibe/orm-seo-bundle": "~0.4",
+    "positibe/orm-media-bundle": "~0.4",
+    "positibe/news-bundle": "~0.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Positibe\\Bundle\\CoreBundle\\": ""
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
 }

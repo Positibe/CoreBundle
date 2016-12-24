@@ -1,6 +1,6 @@
 <?php
 
-namespace Positibe\Bundle\CmfBundle\Locale\Switcher;
+namespace Positibe\Bundle\CoreBundle\Locale\Switcher;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;

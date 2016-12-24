@@ -1,6 +1,6 @@
 <?php
 
-namespace Positibe\Bundle\CmfBundle\Block;
+namespace Positibe\Bundle\CoreBundle\Block;
 
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class ActionBlockService
- * @package Positibe\Bundle\CmfBundle\Block
+ * @package Positibe\Bundle\CoreBundle\Block
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

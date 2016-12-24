@@ -1,0 +1,44 @@
+<style>
+    .list-loggable {
+        color: #82949a;
+    }
+
+    .list-loggable span {
+        font-style: italic;
+    }
+    .list-group.list-loggable .list-group-item {
+        padding: 0;
+        border-radius: 0;
+    }
+</style>
+<ul class="nav list-loggable list-group">
+    {% for log in logs %}
+        <li class="list-group-item">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+               href="#loggable_collapse_{{ log.version }}">
+                <strong>{{ log.version }}
+                    - {{ 'loggable.logs' | trans({'_action': ('loggable.'~ log.action) | trans, '_loggedAt': log.loggedAt | localizeddate('short', 'short'), '_username': log.username }) }}</strong>
+                <span class="pull-right text-muted text-sm">{{ log.loggedAt | localizeddate('short', 'short') }}</span>
+            </a>
+
+            <div id="loggable_collapse_{{ log.version }}" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-hover table-light">
+                        <tbody>
+                        {% for field, data in log.data %}
+                            <tr>
+                                <td>
+                                    {{ (trans_prefix ~ field ) | trans }}
+                                </td>
+                                <td>
+                                    {{ data is iterable ? 'id: ' ~(data | first) : data is date ? data | localizeddate('short', 'short') : data }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

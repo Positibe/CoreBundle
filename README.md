@@ -1,4 +1,4 @@
-PositibeCmfBundle
+PositibeCoreBundle
 =================
 
 This bundle provide combine some Positibe bundles with Sylius ResourcesBundle to provide a simple CMS for Symfony projects.

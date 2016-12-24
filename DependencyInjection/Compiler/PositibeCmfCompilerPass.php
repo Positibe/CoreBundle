@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\DependencyInjection\Compiler;
+namespace Positibe\Bundle\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
 /**
- * Class PositibeCmfCompilerPass
+ * Class PositibeCoreCompilerPass
  * @package Positibe\Bundle\OrmContentBundle\DependencyInjection\Compiler
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
-class PositibeCmfCompilerPass implements CompilerPassInterface
+class PositibeCoreCompilerPass implements CompilerPassInterface
 {
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -36,19 +36,19 @@ class PositibeCmfCompilerPass implements CompilerPassInterface
 
         $container->setParameter(
           'lunetics_locale.request_listener.class',
-          'Positibe\Bundle\CmfBundle\EventListener\LocaleMatcherListener'
+          'Positibe\Bundle\CoreBundle\EventListener\LocaleMatcherListener'
         );
 
         //@fixme to remove in Sylius 0.18 or higher
         $container->setParameter(
           'sylius.resource_controller.single_resource_provider.class',
-          'Positibe\Bundle\CmfBundle\Controller\SingleResourceProvider'
+          'Positibe\Bundle\CoreBundle\Controller\SingleResourceProvider'
         );
 
         //@fixme to remove in Sylius 0.18 or higher
         $container->setParameter(
           'sylius.resource_controller.request_configuration.class',
-          '\Positibe\Bundle\CmfBundle\Controller\RequestConfiguration'
+          'Positibe\Bundle\CoreBundle\Controller\RequestConfiguration'
         );
     }
 

@@ -42,9 +42,9 @@ Seo por contenido
 Internacionalización
 --------------------
 
-Para internacionalizar el Seo debe instalar el PositibeCmfSeoBundle que brinda el mismo objeto SeoMetadata pero con
+Para internacionalizar el Seo debe instalar el PositibeCoreSeoBundle que brinda el mismo objeto SeoMetadata pero con
 internacionalización mediante Gedmo Doctrine Extension.
 
-**Importante:** Recuerde registrar primero el CmfSeoBundle y después el PositibeCmfSeoBundle para poder sobreescribir
+**Importante:** Recuerde registrar primero el CoreSeoBundle y después el PositibeCoreSeoBundle para poder sobreescribir
  el mapeo de la entidad.
 

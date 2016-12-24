@@ -1,7 +1,5 @@
 {% block positibe_image_type_widget %}
-    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
-    <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
-          type="text/css"/>
+    {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
 
     <div class="fileupload fileupload-new row" data-provides="fileupload">
         <div class="col-xs-4">
@@ -17,7 +15,7 @@
             </div>
             <div class="input-sm btn-file-remove">
                 <div class="md-checkbox has-error">
-                {{ form_widget(form.unlink) }}
+                    {{ form_widget(form.unlink) }}
                 </div>
             </div>
 
@@ -27,11 +25,12 @@
 {% endblock positibe_image_type_widget %}
 
 {% block positibe_media_type_widget %}
-    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
+    {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
     <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' fileupload fileupload-new')|trim}) %}
 
-    <div class="fileupload fileupload-new" data-provides="fileupload">
+    <div {{ block('widget_attributes') }} data-provides="fileupload">
         <div class="row">
             <div class="col-xs-4">
                 <div class="fileupload-preview fileupload-exists thumbnail"
@@ -39,7 +38,7 @@
                     {% if value is not empty and value.id %}{{ value.metadata['filename'] }}{% endif %}
                 </div>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-4">
                 <div class="btn btn-info btn-sm fileinput-button">
                     <i class="fa fa-paperclip"></i>
                     {{ 'input.upload' | trans({}, 'PositibeOrmMediaBundle') }}
@@ -56,7 +55,7 @@
 {% endblock positibe_media_type_widget %}
 
 {% block positibe_gallery_type_widget %}
-    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
+    {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
     <div class="tab-pane" id="form_publication_tab_image">
         <div class="form-group">
             <div class="pull-right">
@@ -67,54 +66,65 @@
             </div>
             {{ form_errors(form.gallery_has_medias) }}
         </div>
-        <ul id="form_collection_type_gallery_{{ form.vars.id }}" class="nav"
-            data-count="{{ form.gallery_has_medias | length }}"
-            data-prototype="{{ form_widget(form.gallery_has_medias.vars.prototype)|e }}">
+        <div id="form_collection_type_gallery_{{ form.vars.id }}" class="nav"
+             data-count="{{ form.gallery_has_medias | length }}"
+             data-prototype="{{ form_widget(form.gallery_has_medias.vars.prototype)|e }}">
             {% for media in form.gallery_has_medias %}
-                <li class="inner-form row well">
-                    <div class="col-xs-10" id="{{ form.vars.id }}_form_{{ loop.index0 }}">
-                        {{ form_errors(media) }}
-                        {{ form_widget(media) }}
-
-                    </div>
-
-                    <div class="col-xs-2 text-right">
-                        <a class="btn btn-sm btn-danger form-collection-remove-button"
-                           data-target="{{ form.vars.id }}_form_{{ loop.index0 }}">
-                            <i class="fa fa-trash"></i> Eliminar</a>
-                    </div>
-                </li>
+                {{ form_errors(media) }}
+                {{ form_widget(media) }}
             {% endfor %}
-        </ul>
+        </div>
         <div style="display: none">{{ form_widget(form.gallery_has_medias) }}</div>
     </div>
 {% endblock %}
 
 {% block positibe_gallery_has_media_type_widget %}
-    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
-    <div class="row">
-        <div class="col-sm-4">
-            {{ block('positibe_image_type_small_widget') }}
-        </div>
-        <div class="col-sm-8">
-            {{ form_row(form.title) }}
-            {{ form_row(form.body) }}
+    {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
+    <hr>
+    <div id={{ id }}>
+        <div class="form-group form-md-line-input ">
+            <div class="col-sm-4">
+                {{ block('positibe_image_type_small_widget') }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.title) }}
+                {{ form_row(form.body) }}
+            </div>
+            <div class="col-sm-2">
+                <div class="col-xs-2 text-right">
+                    <a class="btn btn-sm btn-danger form-collection-remove-button"
+                       data-target="{{ form.vars.id }}">
+                        <i class="fa fa-trash"></i> Eliminar</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block positibe_image_type_small_widget %}
     {% set form = form.media %}
-    {% form_theme form '@PositibeCmf/_metronic_material_theme.html.twig' %}
+    {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
     <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
-
+    <style>
+        .fileupload .thumbnail > img {
+            max-width: 60px;
+            max-height: 60px;
+        }
+    </style>
     <div class="fileupload fileupload-new row" data-provides="fileupload">
         <div class="col-xs-12">
-            <div class="fileupload-preview fileupload-exists thumbnail"
-                 style="max-width: 60px; max-height: 60px; line-height: 20px;">
-                <img src="{{ (value is not empty ? form.vars.data.path | imagine_filter('image_thumbnail') : asset('bundles/positibeormmedia/images/avatar.png')) }}">
-            </div>
+            {% if value is not null and value.media.providerName == 'positibe_orm_media.media_provider' %}
+                <div class="fileupload-preview fileupload-exists thumbnail" style="line-height: 20px; width: auto">
+                    {{ value.media }}
+                </div>
+            {% else %}
+                <div class="fileupload-preview fileupload-exists thumbnail"
+                     style="line-height: 20px; width: auto">
+                    <img src="{{ (value is not empty ? form.vars.data.path | imagine_filter('image_thumbnail') : asset('bundles/positibeormmedia/images/avatar.png')) }}"
+                         title="{{ (value is not empty ? value.media.name : '') }}">
+                </div>
+            {% endif %}
             <div class="btn btn-info btn-sm fileinput-button">
                 <i class="fa fa-paperclip"></i>
                 {{ 'input.upload' | trans({}, 'PositibeOrmMediaBundle') }}

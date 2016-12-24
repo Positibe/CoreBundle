@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CmfBundle\Pagerfanta\View;
+namespace Positibe\Bundle\CoreBundle\Pagerfanta\View;
 
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\DefaultView;
-use Positibe\Bundle\CmfBundle\Pagerfanta\Template\MetronicTemplate;
+use Positibe\Bundle\CoreBundle\Pagerfanta\Template\MetronicTemplate;
 
 
 /**
  * Class MetronicView
- * @package Positibe\Bundle\CmfBundle\Pagerfanta\View
+ * @package Positibe\Bundle\CoreBundle\Pagerfanta\View
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

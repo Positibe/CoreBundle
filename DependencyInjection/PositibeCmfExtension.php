@@ -1,6 +1,6 @@
 <?php
 
-namespace Positibe\Bundle\CmfBundle\DependencyInjection;
+namespace Positibe\Bundle\CoreBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PositibeCmfExtension extends Extension
+class PositibeCoreExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -42,9 +42,9 @@ class PositibeCmfExtension extends Extension
                 'Lunetics\\LocaleBundle\\EventListener\\LocaleUpdateListener',
                 'Lunetics\\LocaleBundle\\Cookie\\LocaleCookie',
                 'Lunetics\\LocaleBundle\\Session\\LocaleSession',
-                'Positibe\\Bundle\\CmfBundle\\EventListener\\LocaleMatcherListener',
+                'Positibe\\Bundle\\CoreBundle\\EventListener\\LocaleMatcherListener',
                 'Stof\\DoctrineExtensionsBundle\\EventListener\\LocaleListener',
-                'Positibe\\Bundle\\CmfBundle\\EventListener\\LocaleListener',
+                'Positibe\\Bundle\\CoreBundle\\EventListener\\LocaleListener',
                 'Symfony\\Cmf\\Bundle\\CoreBundle\\EventListener\\PublishWorkflowListener',
                 'Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener'
               ));

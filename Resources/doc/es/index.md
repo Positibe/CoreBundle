@@ -1,7 +1,7 @@
-PositibeCmfBundle
+PositibeCoreBundle
 =================
 
-Este agrega funcionalidad de administración de CMS a los bundle de Positibe ORM Cmf.
+Este agrega funcionalidad de administración de CMS a los bundle de Positibe ORM Core.
 
 Este bundle va a agregar funcionalidades a los bundle PositibeOrmRoutingBundle, PositibeOrmMenuBundle, PositibeOrmSeoBundle, PositibeOrmMediaBundle, PositibeOrmBlockBundle y PositibeOrmContentBundle.
 
@@ -35,7 +35,7 @@ Este bundle te instalará un conjunto de librerías y otros bundle que deberás 
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
-            new Positibe\Bundle\CmfBundle\PositibeCmfBundle(),
+            new Positibe\Bundle\CoreBundle\PositibeCoreBundle(),
 
             //Este bundle debe ir despues de los bundles que crean recursos, pero antes del DoctrineBundle
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
@@ -58,7 +58,7 @@ La mayoría de las configuraciones de los bundles instalados están preconfigura
     # app/config/config.yml
 
         imports:
-            - { resource: @PositibeCmfBundle/Resources/config/config.yml }
+            - { resource: @PositibeCoreBundle/Resources/config/config.yml }
 
 Además debe definir los `locales` del sistema:
 
@@ -116,6 +116,6 @@ y listo ya puede usar las funcionalidades básicas que brinda este bundle.
 Documentación
 -------------
 
-Ahora sigue con configurando recursos: en `@PositibeCmfBundle/Resources/doc/es/resource_management.md`.
+Ahora sigue con configurando recursos: en `@PositibeCoreBundle/Resources/doc/es/resource_management.md`.
 
 
