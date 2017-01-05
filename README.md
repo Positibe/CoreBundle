@@ -1,23 +1,16 @@
-<<<<<<< HEAD
 PositibeCoreBundle
-=================
+==================
 
-This bundle provide combine some Positibe bundles with Sylius ResourcesBundle to provide a simple CMS for Symfony projects.
+Positibe CoreBundle provide common features to Positibe bundles.
+
+Integrate Sylius ResourcesBundle, Gedmo DoctrineExtension, Lunetics LocaleBundle and some other functions.
 
 Installation
 ------------
 
 To install the bundle just add the dependent bundles:
 
-    php composer.phar require positibe/cmf-bundle
-
-You must see the configuration of:
-* PositibeOrmSeoBundle
-* PositibeOrmMenuBundle
-* PositibeOrmBlockBundle
-* PositibeOrmMediaBundle
-* PositibeOrmRoutingBundle
-* PositibeOrmContentBundle
+    php composer.phar require positibe/core-bundle
 
 Next, be sure to enable the bundles in your application kernel:
 
@@ -28,30 +21,42 @@ Next, be sure to enable the bundles in your application kernel:
         return array(
             // ...
             // All dependencies of all Positibe bundles
-            new Positibe\Bundle\OrmMenuBundle\PositibeOrmMenuBundle(),
+            new Positibe\Bundle\CoreBundle\PositibeCoreBundle(),
 
             // ...
         );
     }
 
-Documentation
--------------
+Importing some Twig Extensions
+------------------------------
+
+Switch current locale
+---------------------
+
+
 
 Twig functions
 --------------
 
+**positibe_locale_switcher:**
+
+**go_back:**
+
+**loggable:**
 
 
 Twig tests
 ----------
 
-isDate
+**isDate:**
+
+
 
 En Español
 ~~~~~~~~~~
 
 Ver la documentación en /path/to/bundle/Resources/doc/es/index.md
-=======
-# CoreBundle
-Positibe CoreBundle provide common features to Positibe bundles
->>>>>>> 510d4598ea98fa4c885fb320f03b440096ab50cd
+
+
+
+
