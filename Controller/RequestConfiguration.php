@@ -21,23 +21,6 @@ use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration as SyliusReques
 class RequestConfiguration extends SyliusRequestConfiguration
 {
     /**
-     * @param $name
-     *
-     * @return mixed|null
-     */
-    public function getTemplate($name)
-    {
-        $template = $this->getParameters()->get('template', $this->getDefaultTemplate($name.'.html'));
-        if (null === $template) {
-            throw new \RuntimeException(
-                sprintf('Could not resolve template for resource "%s".', $this->getMetadata()->getAlias())
-            );
-        }
-
-        return $template;
-    }
-
-    /**
      * Get redirect referer, This will detected by configuration
      * If not exists, The `referrer` from headers will be used.
      *
@@ -59,6 +42,8 @@ class RequestConfiguration extends SyliusRequestConfiguration
         if ($redirect['referer'] === true) {
             return $referer;
         }
+
+        return $redirect['referer'];
     }
 
 }

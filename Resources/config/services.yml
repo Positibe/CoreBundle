@@ -1,19 +1,11 @@
 services:
-    positibe_cmf.theme_extension:
+    positibe_core.core_extension:
         class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension
         arguments: [@service_container]
         tags:
           - { name: twig.extension }
 
-    positibe_cmf.metronic_pagerfanta_view:
-        class: Positibe\Bundle\CoreBundle\Pagerfanta\View\MetronicView
-        public: false
-        tags: [{ name: pagerfanta.view, alias: positibe_metronic }]
-
-    positibe.action_block_service:
-            class: Positibe\Bundle\CoreBundle\Block\ActionBlockService
-            arguments: ['action_block', @templating]
-            tags:
-                - { name: sonata.block, alias: search_block}
-            calls:
-                - [setContainer, [@service_container]]
+    #@fixme To remove after ResourceBundle 1.0 official release
+    sylius.resource_controller.form_factory:
+        class: Positibe\Bundle\CoreBundle\Controller\ResourceFormFactory
+        arguments: ["@form.factory"]

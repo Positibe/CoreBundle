@@ -26,7 +26,7 @@
 
 {% block positibe_media_type_widget %}
     {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
-    <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
+    <link href="{{ asset('bundles/positibecore/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
     {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' fileupload fileupload-new')|trim}) %}
 
@@ -104,7 +104,7 @@
 {% block positibe_image_type_small_widget %}
     {% set form = form.media %}
     {% form_theme form '@PositibeCore/_metronic_material_theme.html.twig' %}
-    <link href="{{ asset('bundles/positibecmf/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
+    <link href="{{ asset('bundles/positibecore/jquery-file-upload/css/file-upload.all.min.css') }}" rel="stylesheet"
           type="text/css"/>
     <style>
         .fileupload .thumbnail > img {

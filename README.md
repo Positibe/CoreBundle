@@ -36,6 +36,16 @@ Next, be sure to enable the bundles in your application kernel:
 Documentation
 -------------
 
+Twig functions
+--------------
+
+
+
+Twig tests
+----------
+
+isDate
+
 En Español
 ~~~~~~~~~~
 

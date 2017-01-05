@@ -65,7 +65,7 @@ class PositibeCoreExtension extends \Twig_Extension
         return [
             'date' => new \Twig_SimpleTest(
                 'date',
-                'Positibe\Bundle\CoreBundle\Twig\Extension\PositibeThemeExtension::isDate'
+                'Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension::isDate'
             ),
         ];
     }

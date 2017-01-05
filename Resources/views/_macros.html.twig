@@ -1,14 +1,46 @@
 {% macro pagination(paginator, options) %}
+    {% import _self as pagination %}
     <div class="table-options">
-        <div class="text-left">{% if paginator.haveToPaginate()|default(false) %}
-                {{ pagerfanta(paginator, 'twitter_bootstrap3_translated', options|default({})) }}
+        <div class="pull-left">
+            {% if paginator.haveToPaginate()|default(false) %}
+                <ul class="pagination">
+                    {% if paginator.currentPage == 1 %}
+                        <li class="disabled"><a href="#">&laquo;</a></li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': paginator.currentPage - 1})) }}">&laquo;</a>
+                        </li>
+                    {% endif %}
+                    {% for number in 1..paginator.nbPages %}
+                        <li class="{% if number == paginator.currentPage %}active {% endif %}item">
+                            <a
+                                    href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': number})) }}">{{ number }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if paginator.currentPage == paginator.nbPages %}
+                        <li class="disabled"><a href="#">»</a></li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': paginator.currentPage + 1})) }}">&raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
             {% endif %}
         </div>
-        <div class="pull-right">
+        <div class="pull-right col-md-4">
             {% if paginator | length >  10 %}
-                <div class="pagination text-left" style="position: relative">
-                    {{ sylius_resource_paginate(paginator, [10, 30, 50], {'template': 'PositibeCoreBundle:Pagination:_pagination_nb_results.html.twig'}) }}
-                </div>
+                <form method="get" class=""
+                      action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)) }}">
+                    <div class="input-group ">
+                        <input type="text" name="page" placeholder="{{ 'pagination.jump_to_page'|trans }}..."
+                               class="form-control"
+                               required="required">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn">{{ 'pagination.go'|trans }}</button>
+                        </div>
+                    </div>
+                </form>
             {% endif %}
         </div>
     </div>
