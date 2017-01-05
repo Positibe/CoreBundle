@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 PositibeCoreBundle
 =================
 
@@ -50,3 +51,7 @@ En Español
 ~~~~~~~~~~
 
 Ver la documentación en /path/to/bundle/Resources/doc/es/index.md
+=======
+# CoreBundle
+Positibe CoreBundle provide common features to Positibe bundles
+>>>>>>> 510d4598ea98fa4c885fb320f03b440096ab50cd
