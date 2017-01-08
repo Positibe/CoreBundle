@@ -44,13 +44,6 @@ class PositibeCoreCompilerPass implements CompilerPassInterface
             'sylius.resource_controller.request_configuration.class',
             'Positibe\Bundle\CmfBundle\Controller\RequestConfiguration'
         );
-
-
-        //@fixme to remove in Sylius 0.18 or higher
-        $container->setParameter(
-            'sylius.resource_controller.single_resource_provider.class',
-            'Positibe\Bundle\CmfBundle\Controller\SingleResourceProvider'
-        );
     }
 
 } 
