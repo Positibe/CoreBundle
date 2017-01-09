@@ -1,7 +1,7 @@
 PositibeCoreBundle
 ==================
 
-Positibe CoreBundle provide common features to Positibe bundles.
+Positibe CoreBundle provides common features for Positibe bundles.
 
 Integrate Sylius ResourcesBundle, Gedmo DoctrineExtension, Lunetics LocaleBundle and some other functions.
 
