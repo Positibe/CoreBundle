@@ -10,7 +10,7 @@
   ],
   "homepage": "http://positibelabs.com/bundles/core",
   "license": "MIT",
-  "version": "1.0.0-beta3",
+  "version": "1.0.0-beta4",
   "authors": [
     {
       "name": "Pedro Carlos Abreu Jiménez",
@@ -27,7 +27,7 @@
     "gedmo/doctrine-extensions": "~2.4",
     "stof/doctrine-extensions-bundle": "1.2.*",
     "twig/extensions": "~1.0",
-    "sylius/resource-bundle": "~1.0.0-beta1",
+    "sylius/resource-bundle": "^1.0",
     "lunetics/locale-bundle": "2.4.*"
   },
   "suggestion": {
