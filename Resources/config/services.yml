@@ -1,7 +1,7 @@
 services:
     positibe_core.core_extension:
         class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension
-        arguments: [@service_container]
+        arguments: ["@service_container"]
         tags:
           - { name: twig.extension }
 
