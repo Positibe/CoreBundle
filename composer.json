@@ -10,7 +10,7 @@
   ],
   "homepage": "http://positibelabs.com/bundles/core",
   "license": "MIT",
-  "version": "1.0.0-beta4",
+  "version": "1.0.0-beta3",
   "authors": [
     {
       "name": "Pedro Carlos Abreu Jiménez",
@@ -28,7 +28,6 @@
     "stof/doctrine-extensions-bundle": "1.2.*",
     "twig/extensions": "~1.0",
     "sylius/resource-bundle": "^1.0",
-    "lunetics/locale-bundle": "2.4.*"
   },
   "suggestion": {
     "positibe/orm-block-bundle": "~0.4",
@@ -37,7 +36,8 @@
     "positibe/orm-content-bundle": "~0.4",
     "positibe/orm-seo-bundle": "~0.4",
     "positibe/orm-media-bundle": "~0.4",
-    "positibe/news-bundle": "~0.2"
+    "positibe/news-bundle": "~0.2",
+    "lunetics/locale-bundle": "2.4.*"
   },
   "autoload": {
     "psr-4": {
