@@ -1,0 +1,177 @@
+{% extends 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block form_widget_simple %}
+    {% set attr = attr|merge({"aria-describedby": (id ~ '_text')|trim}) %}
+    {{ parent() }}
+    {% if help is defined %}
+        <small id="{{ id }}_text" class="form-text">{{ help }}</small>
+    {% endif %}
+{% endblock %}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <div class="form-control-feedback">
+                {{ error.message }}
+            </div>
+        {%- endfor -%}
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+
+{% block form_row -%}
+    <div class="form-group row{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
+        {{- form_label(form) -}}
+        <div class="col-10">
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock form_row %}
+
+{% block form_label_class -%}
+    col-2 col-form-label
+{%- endblock form_label_class %}
+
+{#{% block form_row -%}#}
+    {#<div class="md-form{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">#}
+        {#{{- form_widget(form) -}}#}
+        {#{{- form_errors(form) -}}#}
+        {#{{- form_label(form) -}}#}
+    {#</div>#}
+{#{%- endblock form_row %}#}
+
+{#{%- block choice_label -%}#}
+    {#{% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' active')|trim}) %}#}
+    {#{{ block('form_label') }}#}
+{#{%- endblock choice_label -%}#}
+
+
+{#{%- block choice_widget_expanded -%}#}
+    {#{% set attr = attr|merge({class: (attr.class|default('') ~ ' md-form')|trim}) %}#}
+    {#<fieldset {{ block('widget_container_attributes') }}>#}
+        {#{%- for child in form %}#}
+            {#{{- form_row(child) -}}#}
+            {#&#123;&#35;{{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}&#35;&#125;#}
+        {#{% endfor -%}#}
+    {#</fieldset>#}
+{#{%- endblock choice_widget_expanded -%}#}
+
+{% block checkbox_row -%}
+    <div class="form-check row{% if not valid %} has-error{% endif %}">
+        <div class="offset-2 col-10">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{%- endblock checkbox_row %}
+
+{% block checkbox_widget -%}
+    {% set parent_label_class = parent_label_class|default('') %}
+    {% if 'checkbox-inline' in parent_label_class %}
+        {{ form_label(form, null, { widget: parent() }) }}
+    {% else %}
+        <div class="form-check">
+            {{ form_label(form, null, { widget: parent() }) }}
+        </div>
+    {% endif %}
+{%- endblock checkbox_widget %}
+
+{% block checkbox_radio_label %}
+    {# Do no display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if parent_label_class is defined %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control custom-checkbox mr-sm-2')|trim}) %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) %}
+        <label for="{{ id }}" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description col-form-label">{{ label|trans({}, translation_domain) }}</span>
+        </label>
+    {% endif %}
+{% endblock checkbox_radio_label %}
+
+
+
+{% block radio_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'radio-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    {% else -%}
+        <div class="form-check">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- endif %}
+{%- endblock radio_widget %}
+
+{% block radio_label -%}
+    {# Do no display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if parent_label_class is defined %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control custom-radio mr-sm-2')|trim}) %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) %}
+        <label for="{{ id }}" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            <input type="radio" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} >
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description col-form-label">{{ label|trans({}, translation_domain) }}</span>
+        </label>
+
+    {% endif %}
+
+{%- endblock radio_label %}
+
+
+
+{#{% block form_widget_simple %}#}
+    {#{{ parent() }}#}
+    {#{% if help is defined %}#}
+        {#<p class="help-block">#}
+            {#{{ help }}#}
+        {#</p>#}
+    {#{% endif %}#}
+{#{% endblock %}#}
+
+{%- block form_label -%}
+{% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        {% if required %}
+             <span class="text-warning" title="{{ 'This field is required' | trans({}, 'validators') }}">*</span>
+        {% endif %}
+        </label>
+    {%- endif -%}
+{%- endblock form_label -%}
