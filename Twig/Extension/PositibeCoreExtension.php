@@ -41,32 +41,17 @@ class PositibeCoreExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'positibe_locale_switcher' => new \Twig_Function_Method(
-                $this,
-                'renderSwitcher',
-                array('is_safe' => array('html'))
-            ),
-            'go_back' => new \Twig_Function_Method(
-                $this,
-                'goBack',
-                array('is_safe' => array('html'))
-            ),
-            'loggable' => new \Twig_Function_Method(
-                $this,
-                'loggable',
-                array('is_safe' => array('html'))
-            ),
-        );
+        return [
+            new \Twig_SimpleFunction('positibe_locale_switcher', [$this, 'renderSwitcher']),
+            new \Twig_SimpleFunction('go_back', [$this, 'goBack']),
+            new \Twig_SimpleFunction('loggable', [$this, 'loggable']),
+        ];
     }
 
     public function getTests()
     {
         return [
-            'date' => new \Twig_SimpleTest(
-                'date',
-                'Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension::isDate'
-            ),
+            'date' => new \Twig_SimpleTest('date', [$this, 'isDate']),
         ];
     }
 

@@ -3,7 +3,12 @@ services:
         class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension
         arguments: ["@service_container"]
         tags:
-          - { name: twig.extension }
+            - { name: twig.extension }
+
+    positibe_core.form_type_extension:
+        class: Positibe\Bundle\CoreBundle\Form\Extension\FormTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
 
     #@fixme To remove after ResourceBundle 1.0 official release
     sylius.resource_controller.form_factory:
