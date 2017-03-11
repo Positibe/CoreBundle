@@ -1,0 +1,78 @@
+{% macro pagination(paginator, options) %}
+    <div class="row">
+        <nav class="text-left col-8">
+            {% if paginator.haveToPaginate()|default(false) %}
+                <ul class="pagination pagination-sm">
+                    <li>
+                        <form method="get" class=""
+                              action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)) }}">
+                            <div class="input-group input-group-sm">
+                                {{ 'pagination.page' | trans() }}
+                                <input type="text"  style="height: 15px; width: 10px;margin: 0;border-radius: 0"
+                                       name="page" placeholder="{{ 'pagination.jump_to_page'|trans }}..."
+                                       class="form-control form-control-sm"
+                                       value="{{ app.request.get('page')|default(1) }}"
+                                       required="required">
+                            </div>
+                        </form>
+                    </li>
+                    {% if paginator.currentPage == 1 %}
+                        <li class="page-item disabled">
+                            <a href="#" class="page-link">&laquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': paginator.currentPage - 1})) }}"
+                               class="page-link">&laquo;</a>
+                        </li>
+                    {% endif %}
+                    {% for number in 1..paginator.nbPages %}
+                        <li class="{% if number == paginator.currentPage %}active {% endif %}page-item">
+                            <a class="page-link"
+                               href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': number})) }}">{{ number }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if paginator.currentPage == paginator.nbPages %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">»</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': paginator.currentPage + 1})) }}">&raquo;</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        | {{ 'pagination.items' | trans({'%_count%': paginator.nbResults}) }}
+                    </li>
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
+{% endmacro %}
+
+{% macro filter(field, field_id, type) %}
+    {% if type == null or type == 'string' %}
+        <input class="form-control-sm form-control" form="{{ field_id }}"
+               name="criteria[{{ field }}]"
+               value="{{ app.request.get('criteria')[field] | default() }}">
+    {% elseif type == 'boolean' %}
+        <select class="form-control-sm form-control" form="{{ field_id }}"
+                name="criteria[{{ field }}]">
+            <option value=""></option>
+            <option {% if (app.request.get('criteria')[field] | default()) is sameas("1") %}selected{% endif %}
+                    value="1">{{ 'filter.enabled' | trans }}
+            </option>
+            <option {% if (app.request.get('criteria')[field] | default()) is sameas("0") %}selected{% endif %}
+                    value="0">{{ 'filter.disabled' | trans }}
+            </option>
+        </select>
+    {% elseif type == 'range_date' %}
+        {#<input class="form-control-sm form-control date-picker" form="{{ field_id }}"#}
+        {#name="criteria[{{ field }}]"#}
+        {#value="{{ app.request.get('criteria')[field]['from'] | default() }}">#}
+        {#<input class="form-control-sm form-control date-picker" form="{{ field_id }}"#}
+        {#name="criteria[receivedDate_to]"#}
+        {#value="{{ app.request.get('criteria')[field]['to'] | default() }}">#}
+    {% endif %}
+{% endmacro %}
