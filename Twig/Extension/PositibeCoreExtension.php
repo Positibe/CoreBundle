@@ -9,7 +9,6 @@
  */
 namespace Positibe\Bundle\CoreBundle\Twig\Extension;
 
-use Positibe\Bundle\CoreBundle\Locale\Switcher\TargetInformationBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -42,9 +41,9 @@ class PositibeCoreExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('positibe_locale_switcher', [$this, 'renderSwitcher']),
             new \Twig_SimpleFunction('go_back', [$this, 'goBack']),
             new \Twig_SimpleFunction('loggable', [$this, 'loggable']),
+            new \Twig_SimpleFunction('grid_render_sorting', [$this, 'renderSortingLink'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
     }
 
@@ -62,27 +61,6 @@ class PositibeCoreExtension extends \Twig_Extension
     public function getName()
     {
         return 'positibe_theme_twig_extension';
-    }
-
-    /**
-     * @param null $route
-     * @param array $parameters
-     * @param null $template
-     * @return string
-     * @throws \Exception
-     */
-    public function renderSwitcher($route = null, $parameters = array(), $template = null)
-    {
-        $showCurrentLocale = $this->container->getParameter('lunetics_locale.switcher.show_current_locale');
-        $allowedLocales = $this->container->get('lunetics_locale.allowed_locales_provider')->getAllowedLocales();
-        $request = $this->container->get('request_stack')->getMasterRequest();
-        $router = $this->container->get('router');
-
-        $builder = new TargetInformationBuilder($request, $router, $allowedLocales, $showCurrentLocale);
-        $infos = $builder->getTargetInformations($route, $parameters);
-
-        return $this->container->get('lunetics_locale.switcher_helper')->renderSwitch($infos, $template);
-
     }
 
     /**
@@ -134,5 +112,114 @@ class PositibeCoreExtension extends \Twig_Extension
     public function isDate($date)
     {
         return $date instanceof \DateTime;
+    }
+
+    /**
+     * @param \Twig_Environment $twig
+     * @param $property
+     * @param null $label
+     * @param string $order
+     * @param array $options
+     * @return string
+     * @throws \Exception
+     * @throws \Twig_Error
+     */
+    public function renderSortingLink(\Twig_Environment $twig,$property, $label = null, $order = 'asc', array $options = [])
+    {
+        if (null === $label) {
+            $label = $property;
+        }
+
+        if ('asc' !== $order && 'desc' !== $order) {
+            $order = 'asc';
+        }
+
+        $options = $this->getOptions($options, $this->container->getParameter('positibe_core.sorting_template'));
+        $sorting = $this->getRequest()->query->get('sorting', ['id' => 'asc']);
+        $currentOrder = null;
+
+        if (isset($sorting[$property])) {
+            $currentOrder = $sorting[$property];
+            $order = 'asc' === $sorting[$property] ? 'desc' : 'asc';
+        }
+
+        $url = $this->container->get('router')->generate(
+            $this->getRouteName($options['route']),
+            $this->getRouteParams(
+                ['sorting' => [$property => $order]],
+                $options['route_params']
+            )
+        );
+
+        return $twig->render(
+            $options['template'],
+            [
+                'url' => $url,
+                'label' => $label,
+                'icon' => $property == key($sorting),
+                'currentOrder' => $currentOrder,
+            ]
+        );
+    }
+
+    /**
+     * @param array $options
+     * @param string $defaultTemplate
+     *
+     * @return array
+     */
+    private function getOptions(array $options, $defaultTemplate)
+    {
+        if (!array_key_exists('template', $options)) {
+            $options['template'] = $defaultTemplate;
+        }
+
+        if (!array_key_exists('route', $options)) {
+            $options['route'] = null;
+        }
+
+        if (!array_key_exists('route_params', $options)) {
+            $options['route_params'] = [];
+        }
+
+        return $options;
+    }
+
+
+    /**
+     * @param null|string $route
+     *
+     * @return mixed|null
+     */
+    private function getRouteName($route = null)
+    {
+        return null === $route ? $this->getRequest()->attributes->get('_route') : $route;
+    }
+
+    /**
+     * @param array $params
+     * @param array $default
+     *
+     * @return array
+     */
+    private function getRouteParams(array $params = [], array $default = [])
+    {
+        return array_merge(
+            $this->getRequest()->query->all(),
+            $this->getRequest()->attributes->get('_route_params'),
+            array_merge($params, $default)
+        );
+    }
+
+    /**
+     * @return null|\Symfony\Component\HttpFoundation\Request
+     */
+    private function getRequest()
+    {
+        if (!isset($this->request)) {
+            $this->request = $this->container->get('request_stack')->getMasterRequest();
+        }
+
+        return $this->request;
     }
 }

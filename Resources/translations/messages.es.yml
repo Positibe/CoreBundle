@@ -15,3 +15,20 @@ action:
 pagination:
     jump_to_page: Saltar a la página
     go: Ir
+    page: Página
+    items: Encontrados %_count% elementos
+filter:
+    none: Todos
+    enabled: Activo
+    disabled: No activo
+button:
+  close: Cerrar
+  save: Guardar
+  confirm: Confirmar
+form:
+  remove:
+    title: Confirmación
+    message: Está seguro que desea eliminar el elemento
+block_location:
+    form:
+        menus_label: Mostrar en Menu:

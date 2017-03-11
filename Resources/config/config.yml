@@ -1,22 +1,14 @@
-imports:
-  - { resource: @PositibeOrmSeoBundle/Resources/config/config.yml}
-  - { resource: @PositibeOrmContentBundle/Resources/config/config.yml }
-  - { resource: @PositibeOrmMediaBundle/Resources/config/config.yml }
-  - { resource: @PositibeOrmMenuBundle/Resources/config/config.yml }
-  - { resource: @PositibeOrmRoutingBundle/Resources/config/config.yml }
-  - { resource: sylius_crud.yml}
+sylius_resource:
+    settings:
+        sortable: true
+        filterable: true
+        paginate: $paginate
 
 parameters:
     locale: es
-    locales: [es, en, fr]
+    locales: [es, en]
     stof_doctrine_extensions.event_listener.locale.class: Positibe\Bundle\CoreBundle\EventListener\LocaleListener
-
-twig:
-    form:
-        resources:
-            - 'PositibeCoreBundle::_form_media_widgets.html.twig'
-
-sonata_core: ~
+    positibe_core.sorting_template: PositibeCoreBundle:Grid:_sorting.html.twig
 
 stof_doctrine_extensions:
     default_locale: %locale%
@@ -30,29 +22,12 @@ stof_doctrine_extensions:
 #            softdeleteable: true
 #            loggable: true
             sortable: true
-#doctrine:
-#    orm:
-#        entity_managers:
-#            default:
-#                filters:
-#                    softdeleteable:
-#                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-#                        enabled: true
 
-lunetics_locale:
-    switcher:
-        template: PositibeCoreBundle:Locale:switcher.html.twig
-#        show_current_locale: false
-#        use_controller: true                # Must be set to true if you want to use the controller. Defaults to false
-#    #    use_referrer: false                 # Redirect to the origin url from where the switcher was used. Defaults to true
-#        redirect_to_route: homepage   # This parameter MUST be set. Fallback route if no referrer could be found.
-    allowed_locales: %locales%
-#    guessing_excluded_pattern: ^/admin|^/soporte
-#    cookie:
-#        set_on_change: true
-    guessing_order:
-        - session
-        - cookie
-        - query
-#        - router
-    #    - browser
+doctrine:
+    orm:
+        mappings:
+            translatable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"

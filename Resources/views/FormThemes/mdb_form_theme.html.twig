@@ -33,29 +33,10 @@
     col-2 col-form-label
 {%- endblock form_label_class %}
 
-{#{% block form_row -%}#}
-    {#<div class="md-form{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">#}
-        {#{{- form_widget(form) -}}#}
-        {#{{- form_errors(form) -}}#}
-        {#{{- form_label(form) -}}#}
-    {#</div>#}
-{#{%- endblock form_row %}#}
-
-{#{%- block choice_label -%}#}
-    {#{% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' active')|trim}) %}#}
-    {#{{ block('form_label') }}#}
-{#{%- endblock choice_label -%}#}
-
-
-{#{%- block choice_widget_expanded -%}#}
-    {#{% set attr = attr|merge({class: (attr.class|default('') ~ ' md-form')|trim}) %}#}
-    {#<fieldset {{ block('widget_container_attributes') }}>#}
-        {#{%- for child in form %}#}
-            {#{{- form_row(child) -}}#}
-            {#&#123;&#35;{{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}&#35;&#125;#}
-        {#{% endfor -%}#}
-    {#</fieldset>#}
-{#{%- endblock choice_widget_expanded -%}#}
+{% block textarea_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control md-textarea')|trim}) %}
+    {{- parent() -}}
+{%- endblock textarea_widget %}
 
 {% block checkbox_row -%}
     <div class="form-check row{% if not valid %} has-error{% endif %}">
@@ -99,8 +80,6 @@
     {% endif %}
 {% endblock checkbox_radio_label %}
 
-
-
 {% block radio_widget -%}
     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
     {% if 'radio-inline' in parent_label_class %}
@@ -131,9 +110,7 @@
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description col-form-label">{{ label|trans({}, translation_domain) }}</span>
         </label>
-
     {% endif %}
-
 {%- endblock radio_label %}
 
 

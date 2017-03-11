@@ -1,6 +1,2 @@
-admin_cms:
-    path: /
-    defaults: { _controller: "FrameworkBundle:Template:template", template: "PositibeCoreBundle::index.html.twig"}
-
 elfinder:
     resource: "@FMElfinderBundle/Resources/config/routing.yml"

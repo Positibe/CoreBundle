@@ -42,11 +42,8 @@ class PositibeCoreExtension extends Extension
                 'Lunetics\\LocaleBundle\\EventListener\\LocaleUpdateListener',
                 'Lunetics\\LocaleBundle\\Cookie\\LocaleCookie',
                 'Lunetics\\LocaleBundle\\Session\\LocaleSession',
-                'Positibe\\Bundle\\CoreBundle\\EventListener\\LocaleMatcherListener',
                 'Stof\\DoctrineExtensionsBundle\\EventListener\\LocaleListener',
                 'Positibe\\Bundle\\CoreBundle\\EventListener\\LocaleListener',
-                'Symfony\\Cmf\\Bundle\\CoreBundle\\EventListener\\PublishWorkflowListener',
-                'Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener'
               ));
         }
     }

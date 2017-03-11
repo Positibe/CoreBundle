@@ -31,19 +31,6 @@ class PositibeCoreCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $sluggableListener = $container->getDefinition('stof_doctrine_extensions.listener.sluggable');
-        $sluggableListener->addMethodCall('addManagedFilter', array('softdeleteable'));
-
-        $container->setParameter(
-          'lunetics_locale.request_listener.class',
-          'Positibe\Bundle\CoreBundle\EventListener\LocaleMatcherListener'
-        );
-
-        //@fixme to remove in Sylius 1.0 release or higher if redirect to url is developed
-        $container->setParameter(
-            'sylius.resource_controller.request_configuration.class',
-            'Positibe\Bundle\CmfBundle\Controller\RequestConfiguration'
-        );
     }
 
 } 

@@ -9,8 +9,3 @@ services:
         class: Positibe\Bundle\CoreBundle\Form\Extension\FormTypeExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
-
-    #@fixme To remove after ResourceBundle 1.0 official release
-    sylius.resource_controller.form_factory:
-        class: Positibe\Bundle\CoreBundle\Controller\ResourceFormFactory
-        arguments: ["@form.factory"]

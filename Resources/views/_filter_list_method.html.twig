@@ -1,4 +1,0 @@
-<option value="">{{ 'Todos' }}</option>
-{% for value, entity in entities %}
-    <option {% if field_selected == value %}selected="selected"{% endif %} value="{{ value }}">{{ entity | default(value) }}</option>
-{% endfor %}
