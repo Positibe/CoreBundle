@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Class LocaleListener
- * @package Positibe\Bundle\OrmRoutingBundle\EventListener
+ * @package Positibe\Bundle\CmfRoutingExtraBundle\EventListener
  *
  * @todo Pasar a la configuración
  *

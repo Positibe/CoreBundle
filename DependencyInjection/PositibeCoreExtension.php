@@ -26,10 +26,6 @@ class PositibeCoreExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
-        if (isset($bundles['CmfSeoBundle'])) {
-            $loader->load('cmf_seo_extractor_services.yml');
-        }
-
         $loader->load('twig_extension_services.yml');
         $loader->load('services.yml');
 

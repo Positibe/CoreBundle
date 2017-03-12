@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class PositibeCoreCompilerPass
- * @package Positibe\Bundle\OrmContentBundle\DependencyInjection\Compiler
+ * @package Positibe\Bundle\ContentBundle\DependencyInjection\Compiler
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
