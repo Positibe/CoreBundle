@@ -1,5 +1,5 @@
 services:
-# You have to activate it when are not using CmfCoreBundle
+# You have to activate it when you are not using CmfCoreBundle
 #    twig.extension.text:
 #        class: Twig_Extensions_Extension_Text
 #        tags:

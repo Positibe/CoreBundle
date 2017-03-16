@@ -26,7 +26,7 @@ app.initFormCollection = function (elem) {
 
         newWidget.appendTo(ul);
         ul.attr('data-count', ul.attr('data-count') + 1);
-        $(this).trigger('elem_added');
+        $(document).trigger('init_function', newWidget);
     });
 
     $(elem ? elem : document).find('.form-collection-remove-button').click(function (e) {
@@ -34,6 +34,5 @@ app.initFormCollection = function (elem) {
 
         var elem = $('#' + $(this).attr('data-target'));
         elem.remove();
-        $(this).trigger('elem_removed');
     });
 };

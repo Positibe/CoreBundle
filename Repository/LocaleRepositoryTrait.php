@@ -36,25 +36,29 @@ trait LocaleRepositoryTrait
 
     public function setRequestStack(RequestStack $requestStack)
     {
-        $this->locale = $requestStack->getMasterRequest()->getLocale();
+        if ($request = $requestStack->getMasterRequest()) {
+            $this->locale = $request->getLocale();
+        }
+
+        return null;
     }
 
     public function getQuery(QueryBuilder $qb)
     {
         $query = $qb->getQuery();
         $query->setHint(
-          Query::HINT_CUSTOM_OUTPUT_WALKER,
-          'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+            Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
         );
         if ($this->locale) {
             $query->setHint(
-              TranslatableListener::HINT_TRANSLATABLE_LOCALE,
-              $this->locale // take locale from session or request etc.
+                TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+                $this->locale // take locale from session or request etc.
             );
 
             $query->setHint(
-              TranslatableListener::HINT_FALLBACK,
-              1 // fallback to default values in case if record is not translated
+                TranslatableListener::HINT_FALLBACK,
+                1 // fallback to default values in case if record is not translated
             );
         }
 
