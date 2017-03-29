@@ -1,41 +1,41 @@
 {
-  "name": "positibe/core-bundle",
-  "type": "symfony-bundle",
-  "description": "Symfony PositibeCoreBundle",
-  "keywords": [
-    "core",
-    "positibe",
-    "positibelabs"
-  ],
-  "homepage": "http://positibelabs.com/bundles/core",
-  "license": "MIT",
-  "version": "1.0.0-beta5",
-  "authors": [
-    {
-      "name": "Pedro Carlos Abreu Jiménez",
-      "email": "pcabreus@gmail.com",
-      "homepage": "https://github.com/pcabreus"
+    "name": "positibe/core-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony PositibeCoreBundle",
+    "keywords": [
+        "core",
+        "positibe",
+        "positibelabs"
+    ],
+    "homepage": "http://www.positibelabs.com/bundles/core",
+    "license": "MIT",
+    "version": "1.0.0-RC1",
+    "authors": [
+        {
+            "name": "Pedro Carlos Abreu Jiménez",
+            "email": "pcabreus@gmail.com",
+            "homepage": "https://github.com/pcabreus"
+        },
+        {
+            "name": "PositibeLabs",
+            "homepage": "http://www.positibelabs.com"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "~2.8|~3.0",
+        "gedmo/doctrine-extensions": "~2.4",
+        "stof/doctrine-extensions-bundle": "1.2.*",
+        "twig/extensions": "~1.0",
+        "sylius/resource-bundle": "^1.0"
     },
-    {
-      "name": "PositibeLabs Group",
-      "homepage": "https://github.com/Positibe"
+    "autoload": {
+        "psr-4": {
+            "Positibe\\Bundle\\CoreBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
-  ],
-  "require": {
-    "symfony/framework-bundle": "~2.8|~3.0",
-    "gedmo/doctrine-extensions": "~2.4",
-    "stof/doctrine-extensions-bundle": "1.2.*",
-    "twig/extensions": "~1.0",
-    "sylius/resource-bundle": "^1.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Positibe\\Bundle\\CoreBundle\\": ""
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0.x-dev"
-    }
-  }
 }
