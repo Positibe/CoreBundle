@@ -1,0 +1,51 @@
+{% extends '@PositibeCore/FormThemes/mdb_form_theme.html.twig' %}
+
+{% block form_row -%}
+    <div class="md-form md-form-vertical{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
+        {% if icon is defined %}
+            <i class="{{ icon }} prefix"></i>
+        {% endif %}
+        {{- form_widget(form) -}}
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}
+
+{% block form_label_class -%}
+    active
+{%- endblock form_label_class %}
+
+{% block checkbox_row -%}
+    <div class="form-check{% if not valid %} has-error{% endif %}">
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+{%- endblock checkbox_row %}
+
+{%- block form_label -%}
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        {% if required %}
+             <span class="text-warning" title="{{ 'This field is required' | trans({}, 'validators') }}">*</span>
+        {% endif %}
+        </label>
+    {%- endif -%}
+{%- endblock form_label -%}
