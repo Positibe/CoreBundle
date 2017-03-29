@@ -52,9 +52,7 @@
     {% if 'checkbox-inline' in parent_label_class %}
         {{ form_label(form, null, { widget: parent() }) }}
     {% else %}
-        <div class="form-check">
-            {{ form_label(form, null, { widget: parent() }) }}
-        </div>
+        {{ form_label(form, null, { widget: parent() }) }}
     {% endif %}
 {%- endblock checkbox_widget %}
 
@@ -125,7 +123,7 @@
 {#{% endblock %}#}
 
 {%- block form_label -%}
-{% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
     {% if label is not same as(false) -%}
         {% if not compound -%}

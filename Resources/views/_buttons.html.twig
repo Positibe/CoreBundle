@@ -3,10 +3,10 @@
 {% macro move(url, direction, first=false, last=false, message='') %}
     <form action="{{ url }}" method="post" class="delete-action-form pull-right" novalidate>
         <input type="hidden" name="_method" value="PUT">
-        <button title="{{ message is empty ? ('sylius.move_'~direction)|trans : message }}" class="btn btn-default
-        btn-xs {% if ('up' == direction and first) or ('down' == direction and last) %}disabled{% endif %}"
+        <button title="{{ message is empty ? ('sylius.move_'~direction)|trans : message }}" class="btn btn-primary
+        btn-sm {% if ('up' == direction and first) or ('down' == direction and last) %}disabled{% endif %}"
                 type="submit">
-            <i class="glyphicon glyphicon-arrow-{{ direction }}"></i>
+            <i class="fa fa-arrow-{{ direction }}"></i>
         </button>
     </form>
 {% endmacro %}
@@ -17,8 +17,8 @@
     </a>
 {% endmacro %}
 
-{% macro delete_confirm(id, path) %}
-    <div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+{% macro delete_confirm(id, path, resource) %}
+    <div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" novalidate>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,6 +28,7 @@
                 <form method="post" id="form_menu_remove"
                       action="{{ path }}">
                     <input type="hidden" name="_method" value="DELETE"/>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(resource.id) }}"/>
 
                     <div class="modal-body">
                         <div class="text-warning">
@@ -38,7 +39,7 @@
                         <button type="button" class="btn default"
                                 data-dismiss="modal">{{ 'button.close' | trans }}</button>
                         <button type="submit"
-                                class="btn red-haze">{{ 'button.confirm' | trans }}</button>
+                                class="btn btn-primary">{{ 'button.confirm' | trans }}</button>
                     </div>
                 </form>
             </div>

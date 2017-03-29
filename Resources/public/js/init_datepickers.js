@@ -12,10 +12,10 @@ app.initDatePickers = function (elem) {
         "disabledDates": [],
         "enabledDates": [],
         "icons": {
-            "time": "glyphicon glyphicon-time",
-            "date": "glyphicon glyphicon-calendar",
-            "up": "glyphicon glyphicon-chevron-up",
-            "down": "glyphicon glyphicon-chevron-down"
+            "time": "fa fa-times",
+            "date": "fa fa-calendar",
+            "up": "fa fa-chevron-up",
+            "down": "fa fa-chevron-down"
         },
         "useStrict": false,
         "daysOfWeekDisabled": [],
@@ -23,7 +23,7 @@ app.initDatePickers = function (elem) {
         "minuteStepping": 1,
         "language": "es",
         "sideBySide": true,
-        "useSeconds": false
+        "useSeconds": false,
     });
 
     $(elem ? elem : document).find('.date-picker').datetimepicker({
