@@ -46,7 +46,24 @@ class PositibeCoreExtension extends \Twig_Extension
             new \Twig_SimpleFunction('grid_render_sorting', [$this, 'renderSortingLink'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
     }
+    /**
+     * Returns a list of filters to add to the existing list.
+     *
+     * @return array An array of filters
+     */
+    public function getFilters()
+    {
+        return array(
+            new \Twig_SimpleFilter(
+                'decode_html',
+                array('Pcabreus\Utils\Html\NamedCharacterConverter', 'convert')
+            ),
+        );
+    }
 
+    /**
+     * @return array
+     */
     public function getTests()
     {
         return [
@@ -60,7 +77,7 @@ class PositibeCoreExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'positibe_theme_twig_extension';
+        return 'positibe_core_extension';
     }
 
     /**

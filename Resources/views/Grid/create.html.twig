@@ -1,0 +1,63 @@
+{% extends extends | default('base.html.twig') %}
+
+{% block title %}{{ (metadata.name ~ '.create.page_title') | trans }}{% endblock %}
+{% block subtitle %}{{ (metadata.name ~ '.create.page_subtitle') | trans }}{% endblock %}
+{% set menu_active = menu_active | default(metadata.name) %}
+{% set content_menu = metadata.name %}
+
+{% block breadcrumb_list %}
+    <li class="breadcrumb-item">
+        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}">{{ (metadata.name ~ '.breadcrumbs.index') | trans }}</a>
+    </li>
+    <li class="breadcrumb-item">
+        {{ (metadata.name ~'.breadcrumbs.create') | trans }}
+    </li>
+{% endblock %}
+
+{% block content -%}
+    {{ form_start(form,{'attr': {'class': 'form-horizontal inbox-compose' }}) }}
+    {% block content_header %}
+        <div class="card-header white">
+            <div class="card-title text-muted text-uppercase text-right">
+                <div class="card-title-caption">
+                    <h4><i class="{{ icon }}"></i> {{ (metadata.name ~ '.form.legend') | trans }}
+                        <small>{{ (metadata.name ~ '.create.page_title') | trans }}</small>
+                    </h4>
+                </div>
+                <div class="card-title-actions">
+                    {% block actions %}
+                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                           name="back" class="btn btn-default btn-sm"><i
+                                    class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
+                        </a>
+                        <button class="btn btn-primary btn-sm" type="submit"><i
+                                    class="fa fa-check"></i> {{ 'action.save'|trans }}</button>
+                        {% if user is defined and user.id is not null %}
+                            <a class="btn btn-warning btn-sm" data-toggle="modal"
+                               href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
+                                <i class="fa fa-trash"></i> {{ 'action.remove' | trans }}
+                            </a>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="card-block">
+        {% block content_form %}
+            {{ form_widget(form) }}
+        {% endblock %}
+    </div>
+    <div class="card-footer text-right">
+        <div class="card-block">
+            {% block content_action %}
+                <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}"
+                   class="btn btn-default">{{ 'action.cancel' | trans }}</a>
+                <button class="btn btn-primary"><i class="fa fa-check"></i> {{ 'action.save' | trans }}</button>
+            {% endblock %}
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock -%}

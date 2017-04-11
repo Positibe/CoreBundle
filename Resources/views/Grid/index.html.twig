@@ -1,0 +1,112 @@
+{% extends extends | default('base.html.twig') %}
+
+{% from '@PositibeCore/Grid/_pagination.html.twig' import pagination %}
+{% from '@PositibeCore/Grid/_pagination.html.twig' import filter %}
+
+{% block title %}{{ (metadata.name ~ '.list.page_title') | trans }}{% endblock %}
+{% block subtitle %}{{ (metadata.name ~ '.list.page_subtitle') | trans }}{% endblock %}
+{% set menu_active = menu_active | default(metadata.name) %}
+{% set content_menu = metadata.name %}
+
+{% block breadcrumb_list %}
+    <li class="breadcrumb-item">
+        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}">{{ (metadata.name ~ '.breadcrumbs.index') | trans }}</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <form action="" method="get" id="form_{{ metadata.name }}_filter" name="criteria"></form>
+    {% block content_header %}
+        <div class="card-header white">
+            <div class="card-title text-muted text-uppercase text-right">
+                <div class="card-title-caption">
+                    <h4><i class="{{ icon }}"></i> {{ (metadata.name ~ '.list.page_title') | trans }}
+                        <small>{{ (metadata.name ~ '.list.page_subtitle') | trans }}</small>
+                    </h4>
+                </div>
+                <div class="card-title-actions">
+                    {% block actions %}
+                        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~ '_create') }}"
+                           class="btn btn-sm btn-default">
+                            <i class="fa fa-plus-circle"></i> {{ (metadata.name ~ '.list.create_new') | trans }}
+                        </a>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="card-block">
+        {% block content_table %}
+            {{ pagination(resources) }}
+            <table class="table table-striped table-bordered table-hover">
+                <tr>
+                    <th>No.</th>
+                    {% for name,attribute in attributes %}
+                        {% if attribute['order'] is defined %}
+                            <th>{{ grid_render_sorting(metadata.name, (metadata.name ~ '.table.'  ~ name) | trans ) }}</th>
+                        {% else %}
+                            <th>{{ (metadata.name ~ '.table.'  ~ name) | trans }}</th>
+                        {% endif %}
+                    {% endfor %}
+                    <th>{{ 'action.actions'| trans }}</th>
+                </tr>
+                <tr class="table-field-filter">
+                    <th></th>
+                    {% for name,attribute in attributes %}
+                        {% if attribute['filter'] is defined %}
+                            <th>{{ filter(name, 'form_' ~ metadata.name ~ '_filter', attribute['filter']) }}</th>
+                        {% else %}
+                            <th></th>
+                        {% endif %}
+                    {% endfor %}
+                    <th>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-default" type="submit"
+                                    form="form_{{ metadata.name }}_filter"><i
+                                        class="fa fa-search"></i> {{ 'action.filter' | trans }}
+                            </button>
+                        </div>
+                    </th>
+                </tr>
+
+                {% set count = resources.maxPerPage * (resources.currentPage - 1) %}
+                {% for entity in resources %}
+                    <tr>
+                        <td>{{ count + loop.index }}</td>
+                        {% for name,attribute in attributes %}
+                            <td>
+                                {% if attribute['main'] is defined %}
+                                <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_show', {'id': entity.id}) }}"
+                                   title="{{ attribute(entity,name ) }}">
+                                    {% endif %}
+                                    {% if attribute['type'] is defined and attribute['type'] == 'boolean' %}
+                                        <i class="text-success fa {% if attribute(entity,name) %}fa-check-square{% else %}fa-times{% endif %}"></i>
+                                    {% elseif attribute['type'] is defined and attribute['type'] == 'join' %}
+                                        {{ attribute(entity,name) | join(', ') }}
+                                    {% else %}
+                                        {{ attribute['trans'] is defined ? (attribute['trans'] ~ attribute(entity,name)) | trans : attribute(entity,name ) }}
+                                    {% endif %}
+                                    {% if attribute['main'] is defined %}
+                                </a>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-outline-default btn-sm"
+                                   href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~ '_update', { 'id': entity.id }) }}">
+                                    <i class="fa fa-edit"></i> {{ 'action.edit' | trans }}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="{{ (attributes | length) + 2 }}">{{ 'action.empty' | trans }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {{ pagination(resources) }}
+        {% endblock %}
+    </div>
+{% endblock %}

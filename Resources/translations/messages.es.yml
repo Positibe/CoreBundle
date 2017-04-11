@@ -12,6 +12,7 @@ action:
     show: Detalles
     edit: Editar
     remove: Eliminar
+    empty: No hay elementos
 pagination:
     jump_to_page: Saltar a la página
     go: Ir

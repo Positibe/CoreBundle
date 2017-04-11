@@ -1,0 +1,46 @@
+{% extends extends | default('base.html.twig') %}
+
+{% block title %}{{ (metadata.name ~ '.show.page_title') | trans }}{% endblock %}
+{% block subtitle %}{{ main is defined ? attribute(resource, main) : resource }}{% endblock %}
+{% set menu_active = menu_active | default(metadata.name) %}
+{% set content_menu = metadata.name %}
+
+{% block breadcrumb_list %}
+    <li class="breadcrumb-item">
+        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}">{{ (metadata.name ~ '.breadcrumbs.index') | trans }}</a>
+    </li>
+    <li class="breadcrumb-item">
+        {{ main is defined ? attribute(resource, main) : resource }}
+    </li>
+{% endblock %}
+
+{% block content -%}
+    {% block content_header %}
+        <div class="card-header white">
+            <div class="card-title text-muted text-uppercase text-right">
+                <div class="card-title-caption">
+                    <h4><i class="{{ icon }}"></i> {{ (metadata.name ~ '.form.legend') | trans }}
+                        <small>{{ main is defined ? attribute(resource, main) : resource }}</small>
+                    </h4>
+                </div>
+                <div class="card-title-actions">
+                    {% block actions %}
+                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                           name="back" class="btn btn-default btn-sm"><i
+                                    class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
+                        </a>
+
+                        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~ '_update', { 'id': resource.id }) }}"
+                           class="btn btn-default btn-sm">
+                            <i class="fa fa-edit"></i> {{ 'action.edit' | trans }}
+                        </a>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="card-block">
+        {% block content_body %}
+        {% endblock %}
+    </div>
+{% endblock -%}

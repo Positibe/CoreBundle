@@ -1,0 +1,70 @@
+{% extends extends | default('base.html.twig') %}
+
+{% block title %}{{ (metadata.name ~ '.update.page_title') | trans }}{% endblock %}
+{% block subtitle %}{{ (metadata.name ~ '.update.page_subtitle') | trans }}{% endblock %}
+{% set menu_active = menu_active | default(metadata.name) %}
+{% set content_menu = metadata.name %}
+
+{% from '@PositibeCore/_buttons.html.twig' import delete_confirm %}
+
+{% block breadcrumb_list %}
+    <li class="breadcrumb-item">
+        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}">{{ (metadata.name ~ '.breadcrumbs.index') | trans }}</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_show', {'id':resource.id}) }}">{{ main is defined ? attribute(resource, main) : resource }}</a>
+    </li>
+    <li class="breadcrumb-item">
+        {{ (metadata.name ~ '.update.page_subtitle') | trans }}
+    </li>
+{% endblock %}
+
+{% block content -%}
+    {{ form_start(form,{'attr': {'class': 'form-horizontal inbox-compose' }}) }}
+    <input type="hidden" name="_method" value="PUT"/>
+    {% block content_header %}
+        <div class="card-header white">
+            <div class="card-title text-muted text-uppercase text-right">
+                <div class="card-title-caption">
+                    <h4><i class="{{ icon }}"></i> {{ (metadata.name ~ '.form.legend') | trans }}
+                        <small>{{ (metadata.name ~ '.update.page_title') | trans }}</small>
+                    </h4>
+                </div>
+                <div class="card-title-actions">
+                    {% block actions %}
+                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                           name="back" class="btn btn-default btn-sm"><i
+                                    class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
+                        </a>
+                        <button class="btn btn-primary btn-sm" type="submit"><i
+                                    class="fa fa-check"></i> {{ 'action.save'|trans }}</button>
+                    {% endblock %}
+                    {% if resource is defined and resource.id is not null %}
+                        <a class="btn btn-warning btn-sm" data-toggle="modal"
+                           href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
+                            <i class="fa fa-trash"></i> {{ 'action.remove' | trans }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="card-block">
+        {% block content_form %}
+            {{ form_widget(form) }}
+        {% endblock %}
+
+    </div>
+    <div class="card-footer text-right">
+        <div class="card-block">
+            {% block content_action %}
+                <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}"
+                   class="btn btn-default">{{ 'action.cancel' | trans }}</a>
+                <button class="btn btn-primary"><i class="fa fa-check"></i> {{ 'action.save' | trans }}</button>
+            {% endblock %}
+        </div>
+    </div>
+    {{ form_end(form) }}
+    {{ delete_confirm(metadata.applicationName ~ '_' ~ metadata.name ~'_remove', path(metadata.applicationName ~ '_' ~ metadata.name ~'_delete', { 'id': resource.id }), resource) }}
+{% endblock -%}

@@ -8,7 +8,7 @@
                               action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)) }}">
                             <div class="input-group input-group-sm">
                                 {{ 'pagination.page' | trans() }}
-                                <input type="text"  style="height: 15px; width: 10px;margin: 0;border-radius: 0"
+                                <input type="text" style="height: 15px; width: 10px;margin: 0;border-radius: 0"
                                        name="page" placeholder="{{ 'pagination.jump_to_page'|trans }}..."
                                        class="form-control form-control-sm"
                                        value="{{ app.request.get('page')|default(1) }}"
@@ -60,12 +60,22 @@
         <select class="form-control-sm form-control" form="{{ field_id }}"
                 name="criteria[{{ field }}]">
             <option value=""></option>
-            <option {% if (app.request.get('criteria')[field] | default()) is sameas("1") %}selected{% endif %}
+            <option {% if (app.request.get('criteria')[field] | default()) is same as("1") %}selected{% endif %}
                     value="1">{{ 'filter.enabled' | trans }}
             </option>
-            <option {% if (app.request.get('criteria')[field] | default()) is sameas("0") %}selected{% endif %}
+            <option {% if (app.request.get('criteria')[field] | default()) is same as("0") %}selected{% endif %}
                     value="0">{{ 'filter.disabled' | trans }}
             </option>
+        </select>
+    {% elseif type is iterable %}
+        <select class="form-control-sm form-control" form="{{ field_id }}"
+                name="criteria[{{ field }}]">
+            <option value=""></option>
+            {% for value,option in type %}
+                <option {% if (app.request.get('criteria')[field] | default()) is same as(value) %}selected{% endif %}
+                        value="{{ value }}">{{ option | trans }}
+                </option>
+            {% endfor %}
         </select>
     {% elseif type == 'range_date' %}
         {#<input class="form-control-sm form-control date-picker" form="{{ field_id }}"#}
