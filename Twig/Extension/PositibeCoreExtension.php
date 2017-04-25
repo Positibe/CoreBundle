@@ -43,22 +43,12 @@ class PositibeCoreExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('go_back', [$this, 'goBack']),
             new \Twig_SimpleFunction('loggable', [$this, 'loggable']),
-            new \Twig_SimpleFunction('grid_render_sorting', [$this, 'renderSortingLink'], ['needs_environment' => true, 'is_safe' => ['html']]),
-        ];
-    }
-    /**
-     * Returns a list of filters to add to the existing list.
-     *
-     * @return array An array of filters
-     */
-    public function getFilters()
-    {
-        return array(
-            new \Twig_SimpleFilter(
-                'decode_html',
-                array('Pcabreus\Utils\Html\NamedCharacterConverter', 'convert')
+            new \Twig_SimpleFunction(
+                'grid_render_sorting',
+                [$this, 'renderSortingLink'],
+                ['needs_environment' => true, 'is_safe' => ['html']]
             ),
-        );
+        ];
     }
 
     /**
@@ -69,15 +59,6 @@ class PositibeCoreExtension extends \Twig_Extension
         return [
             'date' => new \Twig_SimpleTest('date', [$this, 'isDate']),
         ];
-    }
-
-    /**
-     *
-     * @return string The name of the extension
-     */
-    public function getName()
-    {
-        return 'positibe_core_extension';
     }
 
     /**
@@ -141,8 +122,13 @@ class PositibeCoreExtension extends \Twig_Extension
      * @throws \Exception
      * @throws \Twig_Error
      */
-    public function renderSortingLink(\Twig_Environment $twig,$property, $label = null, $order = 'asc', array $options = [])
-    {
+    public function renderSortingLink(
+        \Twig_Environment $twig,
+        $property,
+        $label = null,
+        $order = 'asc',
+        array $options = []
+    ) {
         if (null === $label) {
             $label = $property;
         }
@@ -202,7 +188,6 @@ class PositibeCoreExtension extends \Twig_Extension
         return $options;
     }
 
-
     /**
      * @param null|string $route
      *
@@ -212,6 +197,7 @@ class PositibeCoreExtension extends \Twig_Extension
     {
         return null === $route ? $this->getRequest()->attributes->get('_route') : $route;
     }
+
 
     /**
      * @param array $params
@@ -238,5 +224,15 @@ class PositibeCoreExtension extends \Twig_Extension
         }
 
         return $this->request;
+    }
+
+
+    /**
+     *
+     * @return string The name of the extension
+     */
+    public function getName()
+    {
+        return 'positibe_core_extension';
     }
 }

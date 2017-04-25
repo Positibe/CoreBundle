@@ -159,12 +159,18 @@ class FilterRepository
     /**
      * Filter a field thar has its to one relation
      *
+     * e.g.
+     *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'name', 'collection');
+     *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'name', 'collection', true, 'col'); //If collection was already joined
+     *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'collection_name', 'collection', false, 'o', 'name'); //If you use diferent filter key
+     *
      * @param QueryBuilder $queryBuilder
      * @param $criteria
      * @param $field
      * @param $toOneField
      * @param bool|false $isJoined
      * @param string $alias
+     * @param null $aliasField
      * @return mixed
      */
     public static function filterToOneField(
@@ -173,7 +179,8 @@ class FilterRepository
         $field,
         $toOneField,
         $isJoined = false,
-        $alias = 'o'
+        $alias = 'o',
+        $aliasField = null
     ) {
         if (isset($criteria[$field])) {
             if (!empty($criteria[$field])) {
@@ -182,7 +189,7 @@ class FilterRepository
                         ->join(sprintf('%s.%s', $alias, $toOneField), $toOneField);
                 }
                 $queryBuilder
-                    ->andWhere(sprintf('%s.%s LIKE :%s', $toOneField, $field, $toOneField.'_'.$field))
+                    ->andWhere(sprintf('%s.%s LIKE :%s', $toOneField, $aliasField ?: $field, $toOneField.'_'.$field))
                     ->setParameter($toOneField.'_'.$field, '%'.$criteria[$field].'%');
             }
             unset($criteria[$field]);
