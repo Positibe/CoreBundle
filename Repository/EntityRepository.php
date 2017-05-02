@@ -48,7 +48,6 @@ class EntityRepository extends SyliusEntityReporitoy
                         ->andWhere($queryBuilder->expr()->eq($name, ':'.$parameter))
                         ->setParameter($parameter, $value);
                 }
-
             }
         }
     }

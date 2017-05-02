@@ -31,6 +31,12 @@
                     </h4>
                 </div>
                 <div class="card-title-actions">
+                    {% if resource is defined and resource.id is not null %}
+                        <a class="btn btn-warning btn-sm" data-toggle="modal"
+                           href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
+                            <i class="fa fa-trash"></i> {{ 'action.remove' | trans }}
+                        </a>
+                    {% endif %}
                     {% block actions %}
                         <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
                            name="back" class="btn btn-default btn-sm"><i
@@ -39,12 +45,7 @@
                         <button class="btn btn-primary btn-sm" type="submit"><i
                                     class="fa fa-check"></i> {{ 'action.save'|trans }}</button>
                     {% endblock %}
-                    {% if resource is defined and resource.id is not null %}
-                        <a class="btn btn-warning btn-sm" data-toggle="modal"
-                           href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
-                            <i class="fa fa-trash"></i> {{ 'action.remove' | trans }}
-                        </a>
-                    {% endif %}
+
                 </div>
             </div>
         </div>
