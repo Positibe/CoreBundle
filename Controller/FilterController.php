@@ -22,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class FilterController extends Controller
 {
-    public function getEntityFilterAction($class, $selected, $field, $presentationField = null)
+    public function getEntityFilterAction($class, $selected, $field = null, $presentationField = null)
     {
         try {
             $entities = $this->get('doctrine.orm.entity_manager')->getRepository($class)->findAll();
@@ -31,7 +31,7 @@ class FilterController extends Controller
         }
 
         return $this->render(
-            '@PositibeCore/_filter_list_entity.html.twig',
+            '@PositibeCore/Filter/_filter_list_entity.html.twig',
             array(
                 'entities' => $entities,
                 'field_selected' => $selected,
@@ -50,7 +50,7 @@ class FilterController extends Controller
         }
 
         return $this->render(
-            '@PositibeCore/_filter_list_method.html.twig',
+            '@PositibeCore/Filter/_filter_list_method.html.twig',
             array(
                 'entities' => $entities,
                 'field_selected' => $selected
@@ -67,7 +67,7 @@ class FilterController extends Controller
         }
 
         return $this->render(
-            '@PositibeCore/_filter_list_enum.html.twig',
+            '@PositibeCore/Filter/_filter_list_enum.html.twig',
             array(
                 'entities' => $entities,
                 'field_selected' => $selected

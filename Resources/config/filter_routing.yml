@@ -1,0 +1,11 @@
+positibe_core_entity_filter:
+    path: /filter_entity/{class}/{selected}/{field}/{presentationField}
+    defaults: { _controller: PositibeCoreBundle:Filter:getEntityFilter, field: null , presentationField: null }
+
+positibe_core_enum_filter:
+    path: /filter_enum/{type}/{selected}
+    defaults: { _controller: PositibeCoreBundle:Filter:getEnumFilter }
+
+positibe_core_method_filter:
+    path: /filter_method/{class}/{method}/{selected}
+    defaults: { _controller: PositibeCoreBundle:Filter:getMethodFilter }

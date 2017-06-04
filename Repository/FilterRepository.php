@@ -157,7 +157,7 @@ class FilterRepository
     }
 
     /**
-     * Filter a field thar has its to one relation
+     * Filter a field thar has its to one relation with LIKE %x%
      *
      * e.g.
      *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'name', 'collection');
@@ -191,6 +191,48 @@ class FilterRepository
                 $queryBuilder
                     ->andWhere(sprintf('%s.%s LIKE :%s', $toOneField, $aliasField ?: $field, $toOneField.'_'.$field))
                     ->setParameter($toOneField.'_'.$field, '%'.$criteria[$field].'%');
+            }
+            unset($criteria[$field]);
+        }
+
+        return $criteria;
+    }
+
+    /**
+     * Filter a field thar has its to one relation but with equal
+     *
+     * e.g.
+     *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'name', 'collection');
+     *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'name', 'collection', true, 'col'); //If collection was already joined
+     *      FilterRepository::filterToOneField($queryBuilder, $criteria, 'collection_name', 'collection', false, 'o', 'name'); //If you use diferent filter key
+     *
+     * @param QueryBuilder $queryBuilder
+     * @param $criteria
+     * @param $field
+     * @param $toOneField
+     * @param bool|false $isJoined
+     * @param string $alias
+     * @param null $aliasField
+     * @return mixed
+     */
+    public static function filterToOneFieldStrict(
+        QueryBuilder $queryBuilder,
+        &$criteria,
+        $field,
+        $toOneField,
+        $isJoined = false,
+        $alias = 'o',
+        $aliasField = null
+    ) {
+        if (isset($criteria[$field])) {
+            if (!empty($criteria[$field])) {
+                if (!$isJoined) {
+                    $queryBuilder
+                        ->join(sprintf('%s.%s', $alias, $toOneField), $toOneField);
+                }
+                $queryBuilder
+                    ->andWhere(sprintf('%s.%s = :%s', $toOneField, $aliasField ?: $field, $toOneField.'_'.$field))
+                    ->setParameter($toOneField.'_'.$field, $criteria[$field]);
             }
             unset($criteria[$field]);
         }

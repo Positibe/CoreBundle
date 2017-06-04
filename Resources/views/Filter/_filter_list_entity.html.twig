@@ -1,4 +1,10 @@
 <option value="">{{ 'filter.none' | trans }}</option>
 {% for entity in entities %}
-    <option {% if field_selected == attribute(entity, field) %}selected="selected"{% endif %} value="{{ attribute(entity, field) }}">{{ attribute(entity, presentationField) | default(entity)}}</option>
+    {% if field is null %}
+        <option {% if field_selected == entity.id %}selected="selected"{% endif %}
+                value="{{ entity.id }}">{{ attribute(entity, presentationField) | default(entity) }}</option>
+    {% else %}
+        <option {% if field_selected == attribute(entity, field) %}selected="selected"{% endif %}
+                value="{{ attribute(entity, field) }}">{{ attribute(entity, presentationField) | default(entity) }}</option>
+    {% endif %}
 {% endfor %}

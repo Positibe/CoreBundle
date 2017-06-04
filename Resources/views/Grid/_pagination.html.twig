@@ -3,19 +3,7 @@
         <nav class="text-left col-8">
             {% if paginator.haveToPaginate()|default(false) %}
                 <ul class="pagination pagination-sm">
-                    <li>
-                        <form method="get" class=""
-                              action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)) }}">
-                            <div class="input-group input-group-sm">
-                                {{ 'pagination.page' | trans() }}
-                                <input type="text" style="height: 15px; width: 10px;margin: 0;border-radius: 0"
-                                       name="page" placeholder="{{ 'pagination.jump_to_page'|trans }}..."
-                                       class="form-control form-control-sm"
-                                       value="{{ app.request.get('page')|default(1) }}"
-                                       required="required">
-                            </div>
-                        </form>
-                    </li>
+                    {{ 'pagination.page' | trans() }}
                     {% if paginator.currentPage == 1 %}
                         <li class="page-item disabled">
                             <a href="#" class="page-link">&laquo;</a>
@@ -26,12 +14,23 @@
                                class="page-link">&laquo;</a>
                         </li>
                     {% endif %}
-                    {% for number in 1..paginator.nbPages %}
-                        <li class="{% if number == paginator.currentPage %}active {% endif %}page-item">
-                            <a class="page-link"
-                               href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': number})) }}">{{ number }}</a>
-                        </li>
-                    {% endfor %}
+
+                    <li>
+                        <form method="get" class=""
+                              action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)) }}">
+                            <div class="md-form md-form-vertical m-0">
+                                <select name="page" placeholder="{{ 'pagination.jump_to_page'|trans }}..."
+                                        class="form-control pagination-select" style="margin-top: -5px">
+                                    {% for number in 1..paginator.nbPages %}
+                                        <option {% if number == paginator.currentPage %}selected="selected"{% endif %}
+                                                data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': number})) }}">
+                                            {{ number }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                    </li>
                     {% if paginator.currentPage == paginator.nbPages %}
                         <li class="page-item disabled">
                             <a class="page-link" href="#">»</a>
@@ -68,15 +67,22 @@
             </option>
         </select>
     {% elseif type is iterable %}
-        <select class="form-control-sm form-control" form="{{ field_id }}"
-                name="criteria[{{ field }}]">
-            <option value=""></option>
-            {% for value,option in type %}
-                <option {% if (app.request.get('criteria')[field] | default()) is same as(value) %}selected{% endif %}
-                        value="{{ value }}">{{ option | trans }}
-                </option>
-            {% endfor %}
-        </select>
+        {% if type['_entity'] is defined %}
+            <select class="form-control-sm form-control filter-list_entity" form="{{ field_id }}"
+                    name="criteria[{{ field }}]"
+                    data-href="{{ path('positibe_core_entity_filter', {'class':type['_entity'], 'selected': app.request.get('criteria')[field] | default('_all'), 'field': type['_field'] is defined ? type['_field'] : null}) }}">
+            </select>
+        {% else %}
+            <select class="form-control-sm form-control" form="{{ field_id }}"
+                    name="criteria[{{ field }}]">
+                <option value=""></option>
+                {% for value,option in type %}
+                    <option {% if (app.request.get('criteria')[field] | default()) is sameas(value) %}selected{% endif %}
+                            value="{{ value }}">{{ option | trans }}
+                    </option>
+                {% endfor %}
+            </select>
+        {% endif %}
     {% elseif type == 'range_date' %}
         {#<input class="form-control-sm form-control date-picker" form="{{ field_id }}"#}
         {#name="criteria[{{ field }}]"#}

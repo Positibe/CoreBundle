@@ -37,11 +37,26 @@ class EntityRepository extends SyliusEntityReporitoy
             if (null === $value) {
                 $queryBuilder->andWhere($queryBuilder->expr()->isNull($name));
             } elseif (is_array($value)) {
-                $queryBuilder->andWhere($queryBuilder->expr()->in($name, $value));
+                $orNull = false;
+
+                for ($i = 0; $i < count($value); $i++) {
+                    if ($value[$i] === null) {
+                        unset($value[$i]);
+                        $orNull = true;
+                    }
+                }
+
+                if (count($value) > 0) {
+                    $queryBuilder->andWhere($queryBuilder->expr()->in($name, $value));
+                }
+
+                if ($orNull) {
+                    $queryBuilder->orWhere($queryBuilder->expr()->isNull($name));
+                }
             } elseif ('' !== $value) {
                 $parameter = str_replace('.', '_', $property);
                 $mapping = $this->_class->getFieldMapping($property);
-                if ($mapping['type'] === 'string') {
+                if ($mapping['type'] === 'string' || $mapping['type'] === 'text') {
                     $queryBuilder->andWhere($name.' LIKE :'.$parameter)->setParameter($parameter, '%'.$value.'%');
                 } else {
                     $queryBuilder

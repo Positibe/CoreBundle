@@ -68,7 +68,7 @@
         {% if label is empty %}
             {% set label = name|humanize %}
         {% endif %}
-        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control custom-checkbox mr-sm-2')|trim}) %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control custom-checkbox mr-sm-2 col-12')|trim}) %}
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) %}
         <label for="{{ id }}" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
             <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />

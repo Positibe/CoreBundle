@@ -83,6 +83,10 @@
                                         <i class="text-success fa {% if attribute(entity,name) %}fa-check-square{% else %}fa-times{% endif %}"></i>
                                     {% elseif attribute['type'] is defined and attribute['type'] == 'join' %}
                                         {{ attribute(entity,name) | join(', ') }}
+                                    {% elseif attribute['badge'] is defined %}
+                                        <div class="badge badge-{{ attribute['badge'][attribute(entity,name)] is defined ? attribute['badge'][attribute(entity,name)] : 'default' }}">
+                                            {{ attribute['trans'] is defined ? (attribute['trans'] ~ attribute(entity,name)) | trans : attribute(entity,name ) }}
+                                        </div>
                                     {% else %}
                                         {{ attribute['trans'] is defined ? (attribute['trans'] ~ attribute(entity,name)) | trans : attribute(entity,name ) }}
                                     {% endif %}
@@ -109,4 +113,24 @@
             {{ pagination(resources) }}
         {% endblock %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('.filter-list_entity').each(function () {
+                var select = $(this);
+                $.ajax({
+                    url: select.data('href'),
+                    success: function (data) {
+                        select.append(data);
+                    }
+                })
+            });
+
+            $('.pagination-select').on('change', function () {
+                window.location.href = $(this).find(':selected').data('href');
+            })
+        })
+    </script>
 {% endblock %}

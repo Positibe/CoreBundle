@@ -7,6 +7,8 @@
 
 {% from '@PositibeCore/_buttons.html.twig' import delete_confirm %}
 
+{% set deletable = deletable is defined ? deletable : (resource.deletable is defined ? resource.deletable : true) %}
+
 {% block breadcrumb_list %}
     <li class="breadcrumb-item">
         <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}">{{ (metadata.name ~ '.breadcrumbs.index') | trans }}</a>
@@ -31,7 +33,7 @@
                     </h4>
                 </div>
                 <div class="card-title-actions">
-                    {% if resource is defined and resource.id is not null %}
+                    {% if deletable %}
                         <a class="btn btn-warning btn-sm" data-toggle="modal"
                            href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
                             <i class="fa fa-trash"></i> {{ 'action.remove' | trans }}
@@ -67,5 +69,7 @@
         </div>
     </div>
     {{ form_end(form) }}
-    {{ delete_confirm(metadata.applicationName ~ '_' ~ metadata.name ~'_remove', path(metadata.applicationName ~ '_' ~ metadata.name ~'_delete', { 'id': resource.id }), resource) }}
+    {% if deletable %}
+        {{ delete_confirm(metadata.applicationName ~ '_' ~ metadata.name ~'_remove', path(metadata.applicationName ~ '_' ~ metadata.name ~'_delete', { 'id': resource.id }), resource) }}
+    {% endif %}
 {% endblock -%}
