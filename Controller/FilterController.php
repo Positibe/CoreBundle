@@ -22,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class FilterController extends Controller
 {
-    public function getEntityFilterAction($class, $selected, $field = null, $presentationField = null)
+    public function getEntityFilterAction($class, $selected, $field, $presentationField = null)
     {
         try {
             $entities = $this->get('doctrine.orm.entity_manager')->getRepository($class)->findAll();

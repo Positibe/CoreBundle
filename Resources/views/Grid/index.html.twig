@@ -61,7 +61,7 @@
                     {% endfor %}
                     <th>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-default" type="submit"
+                            <button class="btn btn-sm btn-default filter-button" type="submit"
                                     form="form_{{ metadata.name }}_filter"><i
                                         class="fa fa-search"></i> {{ 'action.filter' | trans }}
                             </button>
@@ -83,6 +83,8 @@
                                         <i class="text-success fa {% if attribute(entity,name) %}fa-check-square{% else %}fa-times{% endif %}"></i>
                                     {% elseif attribute['type'] is defined and attribute['type'] == 'join' %}
                                         {{ attribute(entity,name) | join(', ') }}
+                                    {% elseif attribute['type'] is defined and attribute['type'] == 'date' %}
+                                        {{ attribute(entity,name) | localizeddate('long', 'none') }}
                                     {% elseif attribute['badge'] is defined %}
                                         <div class="badge badge-{{ attribute['badge'][attribute(entity,name)] is defined ? attribute['badge'][attribute(entity,name)] : 'default' }}">
                                             {{ attribute['trans'] is defined ? (attribute['trans'] ~ attribute(entity,name)) | trans : attribute(entity,name ) }}
@@ -130,6 +132,10 @@
 
             $('.pagination-select').on('change', function () {
                 window.location.href = $(this).find(':selected').data('href');
+            });
+
+            $('.filter-select').on('change', function () {
+                $('.filter-button').click();
             })
         })
     </script>

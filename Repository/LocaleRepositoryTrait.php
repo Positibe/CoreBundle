@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 trait LocaleRepositoryTrait
 {
-    private $locale;
+    protected $locale;
 
     /**
      * @param mixed $locale
