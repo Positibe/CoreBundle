@@ -1,4 +1,4 @@
-<option value="">{{ 'filter.none' | trans }}</option>
+<option value="">{{ empty_text }}</option>
 {% for entity in entities %}
     <option {% if field_selected == entity.name %}selected="selected"{% endif %} value="{{ entity.name }}">{{ entity.text | default(entity.name)}}</option>
 {% endfor %}

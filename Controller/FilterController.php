@@ -12,6 +12,7 @@ namespace Positibe\Bundle\CoreBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 /**
@@ -22,8 +23,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class FilterController extends Controller
 {
-    public function getEntityFilterAction($class, $selected, $field, $presentationField = null)
-    {
+    public function getEntityFilterAction(
+        Request $request,
+        $class,
+        $selected,
+        $field = null,
+        $presentationField = null
+    ) {
         try {
             $entities = $this->get('doctrine.orm.entity_manager')->getRepository($class)->findAll();
         } catch (\Exception $e) {
@@ -33,6 +39,7 @@ class FilterController extends Controller
         return $this->render(
             '@PositibeCore/Filter/_filter_list_entity.html.twig',
             array(
+                'empty_text' => $request->get('emptyText') ?: 'Todos',
                 'entities' => $entities,
                 'field_selected' => $selected,
                 'field' => $field,
@@ -58,7 +65,7 @@ class FilterController extends Controller
         );
     }
 
-    public function getEnumFilterAction($type, $selected)
+    public function getEnumFilterAction(Request $request, $type, $selected)
     {
         if ($this->container->has('positibe.repository.enum')) {
             $entities = $this->container->get('positibe.repository.enum')->findEnums($type);
@@ -69,6 +76,7 @@ class FilterController extends Controller
         return $this->render(
             '@PositibeCore/Filter/_filter_list_enum.html.twig',
             array(
+                'empty_text' => $request->get('emptyText', 'Todos'),
                 'entities' => $entities,
                 'field_selected' => $selected
             )
