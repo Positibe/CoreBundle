@@ -47,11 +47,21 @@ class EntityRepository extends SyliusEntityReporitoy
                 }
 
                 if (count($value) > 0) {
-                    $queryBuilder->andWhere($queryBuilder->expr()->in($name, $value));
+                    if ($orNull) {
+                        $queryBuilder->andWhere(
+                            $queryBuilder->expr()->orX(
+                                $queryBuilder->expr()->in($name, $value),
+                                $orNull ? $queryBuilder->expr()->isNull($name) : null
+                            )
+                        );
+                    } else {
+                        $queryBuilder->andWhere($queryBuilder->expr()->in($name, $value));
+                    }
+                    continue;
                 }
 
                 if ($orNull) {
-                    $queryBuilder->orWhere($queryBuilder->expr()->isNull($name));
+                    $queryBuilder->andWhere($queryBuilder->expr()->isNull($name));
                 }
             } elseif ('' !== $value) {
                 $parameter = str_replace('.', '_', $property);

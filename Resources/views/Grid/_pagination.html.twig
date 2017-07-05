@@ -24,7 +24,7 @@
                                class="page-link">&lsaquo;</a>
                         </li>
                     {% endif %}
-                    {% for number in (paginator.currentPage <= 2 ? 1 : paginator.currentPage - 2)..(paginator.currentPage + 2 >= paginator.nbPages ? paginator.nbPages : paginator.currentPage + 2) %}
+                    {% for number in (paginator.currentPage <= 5 ? 1 : paginator.currentPage - 5)..(paginator.currentPage + 5 >= paginator.nbPages ? paginator.nbPages : paginator.currentPage + 5) %}
                         <li class="{% if number == paginator.currentPage %}active {% endif %}page-item">
                             <a class="page-link"
                                href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': number})) }}">{{ number }}</a>
