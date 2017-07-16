@@ -23,7 +23,7 @@ app.initDatePickers = function (elem) {
         "minuteStepping": 1,
         "language": "es",
         "sideBySide": true,
-        "useSeconds": false,
+        "useSeconds": false
     });
 
     $(elem ? elem : document).find('.date-picker').datetimepicker({

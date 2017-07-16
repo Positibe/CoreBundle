@@ -4,7 +4,7 @@ if (app === undefined) {
 
 app.addNewItem = function (data, urlCreateEnum) {
     var select = $('#' + data);
-    var enumText = select.parents('.form-group').find('.chosen-search input').val();
+    var enumText = $('#' + data + '_chosen .chosen-search input').val();
     var enumType = select.data('enum_type');
 
     $.post(urlCreateEnum, {'enum_type': enumType, 'enum_text': enumText}, function (data) {
