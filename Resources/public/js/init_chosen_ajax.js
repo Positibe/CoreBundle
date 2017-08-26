@@ -29,7 +29,9 @@ app.initChosenAjax = function (elem, url) {
                 elem.chosen({
                     no_results_text: 'No se encontraron resultados para:',
                     placeholder_text_multiple: '-- Seleccione una opción --',
-                    placeholder_text_single: '-- Seleccione alguna opción --'
+                    placeholder_text_single: '-- Seleccione alguna opción --',
+                    allow_single_deselect: true,
+                    disable_search_threshold: 10
                 });
             }
         });

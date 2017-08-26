@@ -43,7 +43,7 @@
                     <th>No.</th>
                     {% for name,attribute in attributes %}
                         {% if attribute['order'] is defined %}
-                            <th>{{ grid_render_sorting(metadata.name, (metadata.name ~ '.table.'  ~ name) | trans ) }}</th>
+                            <th>{{ grid_render_sorting(name, (metadata.name ~ '.table.'  ~ name) | trans ) }}</th>
                         {% else %}
                             <th>{{ (metadata.name ~ '.table.'  ~ name) | trans }}</th>
                         {% endif %}

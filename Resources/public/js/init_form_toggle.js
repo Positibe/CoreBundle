@@ -4,7 +4,7 @@ if (app === undefined) {
 
 app.initFormToggle = function (elem) {
     elem = elem ? elem : document;
-    $(elem).find('.form-toggle').parents('.form-group').css('display', 'none');
+    $(elem).find('.form-toggle').parents('.form-group, .md-form').css('display', 'none');
 
     /**
      * Formularios toggle.
@@ -34,10 +34,10 @@ app.initFormToggle = function (elem) {
                 var eachToggle = $(this);
                 //No importa si es número o letra
                 if (value == eachToggle.data('toggle_if_value') || eachToggle.data('toggle_if_multiple_values') !== undefined && eachToggle.data('toggle_if_multiple_values').split(',').indexOf(value) !== -1 || eachToggle.data('toggle_if_any_value')) {
-                    eachToggle.parents('.form-group').css('display', 'block');
+                    eachToggle.parents('.form-group, .md-form').css('display', 'block');
                 }
                 else {
-                    eachToggle.parents('.form-group').css('display', 'none');
+                    eachToggle.parents('.form-group, .md-form').css('display', 'none');
                 }
             });
 

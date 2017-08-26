@@ -41,7 +41,9 @@ app.createChosenModal = function () {
             no_results_text: '<a onclick="app.clickOnObject(\'' + $(this).attr('data-chosen_button') + '\',\'' + $(this).attr('id') + '\')">Agregar nuevo: </a>',
             search_contains: true,
             placeholder_text_multiple: '-- Seleccione una opción --',
-            placeholder_text_single: '-- Seleccione alguna opción --'
+            placeholder_text_single: '-- Seleccione alguna opción --',
+            allow_single_deselect: true,
+            disable_search_threshold: 10
 
         })
         ;

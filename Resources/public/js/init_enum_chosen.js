@@ -23,8 +23,9 @@ app.createChosenEnum = function (urlCreateEnum, target) {
             no_results_text: '<a onclick="app.addNewItem(\'' + $(this).attr('id') + '\', \'' + urlCreateEnum + '\')">Agregar nuevo: </a>',
             search_contains: true,
             placeholder_text_multiple: '-- Seleccione una opción --',
-            placeholder_text_single: '-- Seleccione alguna opción --'
-
+            placeholder_text_single: '-- Seleccione alguna opción --',
+            allow_single_deselect: true,
+            disable_search_threshold: 10
         })
     })
     ;
