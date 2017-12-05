@@ -33,17 +33,19 @@
                     </h4>
                 </div>
                 <div class="card-title-actions">
+                    {% block go_back %}
+                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                           name="back" class="btn btn-default btn-sm float-left"><i
+                                    class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
+                        </a>
+                    {% endblock %}
                     {% if deletable %}
-                        <a class="btn btn-warning btn-sm" data-toggle="modal"
+                        <a class="btn btn-warning btn-sm float-left" data-toggle="modal"
                            href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
                             <i class="fa fa-trash"></i> {{ 'action.remove' | trans }}
                         </a>
                     {% endif %}
                     {% block actions %}
-                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
-                           name="back" class="btn btn-default btn-sm"><i
-                                    class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
-                        </a>
                         <button class="btn btn-primary btn-sm" type="submit"><i
                                     class="fa fa-check"></i> {{ 'action.save'|trans }}</button>
                     {% endblock %}

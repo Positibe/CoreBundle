@@ -1,6 +1,6 @@
 positibe_core_entity_filter:
-    path: /filter_entity/{class}/{selected}/{field}/{presentationField}
-    defaults: { _controller: PositibeCoreBundle:Filter:getEntityFilter, field: null , presentationField: null }
+    path: /filter_entity
+    defaults: { _controller: PositibeCoreBundle:Filter:getEntityFilter }
 
 positibe_core_enum_filter:
     path: /filter_enum/{type}/{selected}

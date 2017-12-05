@@ -28,7 +28,11 @@ class EntityRepository extends SyliusEntityReporitoy
     protected function applyCriteria(QueryBuilder $queryBuilder, array $criteria = [])
     {
         foreach ($criteria as $property => $value) {
-            if (!in_array($property, $this->_class->getFieldNames())) {
+            if (!in_array(
+                $property,
+                array_merge($this->_class->getFieldNames(), $this->_class->getAssociationNames())
+            )
+            ) {
                 continue;
             }
 
@@ -65,7 +69,11 @@ class EntityRepository extends SyliusEntityReporitoy
                 }
             } elseif ('' !== $value) {
                 $parameter = str_replace('.', '_', $property);
-                $mapping = $this->_class->getFieldMapping($property);
+                if ($this->_class->hasAssociation($property)) {
+                    $mapping = $this->_class->getAssociationMapping($property);
+                } else {
+                    $mapping = $this->_class->getFieldMapping($property);
+                }
                 if ($mapping['type'] === 'string' || $mapping['type'] === 'text') {
                     $queryBuilder->andWhere($name.' LIKE :'.$parameter)->setParameter($parameter, '%'.$value.'%');
                 } else {

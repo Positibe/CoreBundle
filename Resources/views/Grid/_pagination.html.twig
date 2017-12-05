@@ -79,7 +79,7 @@
         {% if type['_entity'] is defined %}
             <select class="form-control-sm form-control filter-select filter-list_entity" form="{{ field_id }}"
                     name="criteria[{{ field }}]"
-                    data-href="{{ path('positibe_core_entity_filter', {'class':type['_entity'], 'selected': app.request.get('criteria')[field] | default('_all'), 'field': type['_field'] is defined ? type['_field'] : null}) }}">
+                    data-href="{{ path('positibe_core_entity_filter', {'class':type['_entity'],'criteria': type['criteria'] is defined ? type['criteria'] : {}, 'selected': app.request.get('criteria')[field] | default('_all'), 'field': type['_field'] is defined ? type['_field'] : null}) }}">
             </select>
         {% else %}
             <select class="form-control-sm form-control" form="{{ field_id }}"

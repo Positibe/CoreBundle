@@ -25,13 +25,17 @@ class FilterController extends Controller
 {
     public function getEntityFilterAction(
         Request $request,
-        $class,
-        $selected,
+        $class = null,
+        $criteria = [],
+        $selected = null,
         $field = null,
-        $presentationField = null
+        $presentationField = null,
+        $emptyText = 'Todos'
     ) {
         try {
-            $entities = $this->get('doctrine.orm.entity_manager')->getRepository($class)->findAll();
+            $entities = $this->get('doctrine.orm.entity_manager')->getRepository(
+                $request->get('class', $class)
+            )->findBy($request->get('criteria', $criteria));
         } catch (\Exception $e) {
             $entities = new ArrayCollection();
         }
@@ -39,11 +43,11 @@ class FilterController extends Controller
         return $this->render(
             '@PositibeCore/Filter/_filter_list_entity.html.twig',
             array(
-                'empty_text' => $request->get('emptyText') ?: 'Todos',
+                'empty_text' => $request->get('emptyText', $emptyText),
                 'entities' => $entities,
-                'field_selected' => $selected,
-                'field' => $field,
-                'presentationField' => $presentationField
+                'field_selected' => $request->get('selected', $selected),
+                'field' => $request->get('field', $field),
+                'presentationField' => $request->get('presentationField', $presentationField),
             )
         );
     }
@@ -60,7 +64,7 @@ class FilterController extends Controller
             '@PositibeCore/Filter/_filter_list_method.html.twig',
             array(
                 'entities' => $entities,
-                'field_selected' => $selected
+                'field_selected' => $selected,
             )
         );
     }
@@ -78,7 +82,7 @@ class FilterController extends Controller
             array(
                 'empty_text' => $request->get('emptyText', 'Todos'),
                 'entities' => $entities,
-                'field_selected' => $selected
+                'field_selected' => $selected,
             )
         );
     }
