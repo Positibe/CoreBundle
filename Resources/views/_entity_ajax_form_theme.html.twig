@@ -1,0 +1,34 @@
+{%- block entity_ajax_widget -%}
+    {#{% form_theme form "@PositibeCore/FormThemes/mdb_form_theme.html.twig" %}#}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' chosen-select-ajax form-control')|trim}) %}
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+        <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+        {% if value is not empty %}
+            {% if multiple %}
+                {% for option in value %}
+                    <option value="{{ option.id }}" selected="selected">{{ option }}</option>
+                {% endfor %}
+            {% else %}
+                <option value="{{ value.id | default(value) }}" selected="selected">{{ value }}</option>
+            {% endif %}
+        {% endif %}
+        {%- set options = choices -%}
+        {{- block('choice_widget_options') -}}
+    </select>
+{%- endblock -%}
+
+{% block entity_dropdown_widget %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ '')|trim}) %}
+    <div class="dropdown dropdown-entity">
+        <button class="btn btn-dropdown-list" type="button" id="category_button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="text-muted">Seleccione un elemento
+                                    <span class="caret"></span>
+                                </span>
+        </button>
+        <button class="btn btn-dropdown-close" id="category_button_clear" type="button">x</button>
+        <ul class="dropdown-menu" aria-labelledby="category_button" id="category_button_group">
+        </ul>
+    </div>
+    <input type="hidden" {{ block('widget_attributes') }} value="{{ value.id | default(value) }}">
+{% endblock %}

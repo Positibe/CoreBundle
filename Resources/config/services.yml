@@ -9,3 +9,9 @@ services:
         class: Positibe\Bundle\CoreBundle\Form\Extension\FormTypeExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+
+    positibe_core.entity_ajax_form_type:
+        class: Positibe\Bundle\CoreBundle\Form\Type\EntityAjaxFormType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

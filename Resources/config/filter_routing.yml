@@ -9,3 +9,7 @@ positibe_core_enum_filter:
 positibe_core_method_filter:
     path: /filter_method/{class}/{method}/{selected}
     defaults: { _controller: PositibeCoreBundle:Filter:getMethodFilter }
+
+positibe_core_api_entity_ajax:
+    path: /filter_entity_ajax
+    defaults: { _controller: PositibeCoreBundle:Filter:apiEntityAjax }

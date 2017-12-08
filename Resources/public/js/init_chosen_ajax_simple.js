@@ -9,7 +9,8 @@ app.initChosenAjax = function (elem, url) {
             url: $(this).data('api') !== undefined ? $(this).data('api') : url,
             data: {
                 entity: $(this).data('entity'),
-                fieldText: $(this).data('field_text')
+                fieldText: $(this).data('field_text'),
+                depend_value: $(this).val()
             },
             elem: this,
             success: function (data) {

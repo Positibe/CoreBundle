@@ -1,0 +1,36 @@
+<script>
+    $(document).ready(function () {
+        $('.select-dependent').each(function () {
+            var select = $(this);
+            var entity = select.data('entity');
+            var joinedField = select.data('joined_field');
+            var fieldText = select.data('field_text');
+            var target = select.data('target');
+            $('#' + target).on('change', function () {
+                $.ajax({
+                    'url': "{{ path('positibe_core_entity_filter') }}",
+                    'dataType': 'json',
+                    'data': {
+                        'entity': entity,
+                        'fieldText': fieldText,
+                        'joined_field': joinedField,
+                        'joined_id': $(this).val()
+                    },
+                    'success': function (data) {
+                        select.empty();
+                        select.chosen('destroy');
+                        for (var i = 0; i < data.length; i++) {
+                            select.append("<option value='" + data[i].id + "'>" + data[i].text + "</option>");
+                        }
+                        select.chosen({
+                            no_results_text: 'No se encontraron resultados para:',
+                            placeholder_text_multiple: '-- Seleccione una opción --',
+                            placeholder_text_single: '-- Seleccione alguna opción --'
+                        });
+                        select.trigger('change');
+                    }
+                });
+            });
+        })
+    });
+</script>
