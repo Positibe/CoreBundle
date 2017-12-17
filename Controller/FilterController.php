@@ -115,7 +115,7 @@ class FilterController extends Controller
             if (($dependField = $request->query->get('depend_field')) && ($dependValue = $request->query->get(
                     'depend_value'
                 ))) {
-                $extra .= sprintf(" WHERE u.%s = %s", $dependField, $dependValue);
+                $extra .= sprintf(" WHERE u.%s = '%s'", $dependField, $dependValue);
                 $whereSet = true;
             }
             if ($filter = $request->query->get('query')) {
