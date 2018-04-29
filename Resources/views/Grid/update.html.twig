@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-title-actions">
                     {% block go_back %}
-                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                        <a onclick="history.back();"
                            name="back" class="btn btn-default btn-sm float-left"><i
                                     class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
                         </a>
@@ -64,7 +64,7 @@
     <div class="card-footer text-right">
         <div class="card-block">
             {% block content_action %}
-                <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}"
+                <a onclick="history.back();"
                    class="btn btn-default">{{ 'action.cancel' | trans }}</a>
                 <button class="btn btn-primary"><i class="fa fa-check"></i> {{ 'action.save' | trans }}</button>
             {% endblock %}

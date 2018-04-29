@@ -25,11 +25,14 @@
                     </h4>
                 </div>
                 <div class="card-title-actions">
-                    {% block actions %}
-                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                    {% block go_back %}
+                        <a onclick="history.back();"
                            name="back" class="btn btn-default btn-sm"><i
                                     class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
                         </a>
+                    {% endblock %}
+                    {% block actions %}
+
                         {% if user is defined and user.id is not null %}
                             <a class="btn btn-warning btn-sm" data-toggle="modal"
                                href="#{{ metadata.applicationName ~ '_' ~ metadata.name }}_remove">
@@ -52,7 +55,7 @@
     <div class="card-footer text-right">
         <div class="card-block">
             {% block content_action %}
-                <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~'_index') }}"
+                <a onclick="history.back();"
                    class="btn btn-default">{{ 'action.cancel' | trans }}</a>
                 <button class="btn btn-primary"><i class="fa fa-check"></i> {{ 'action.save' | trans }}</button>
             {% endblock %}

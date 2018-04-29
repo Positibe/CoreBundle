@@ -1,6 +1,6 @@
-{% macro pagination(paginator, options) %}
+{% macro pagination(paginator, filterTranslate) %}
     <div class="row">
-        <nav class="text-left col-8">
+        <div class="col-sm-7">
             {% if paginator.haveToPaginate()|default(false) %}
                 <ul class="pagination pagination-sm">
                     {{ 'pagination.page' | trans() }}
@@ -55,13 +55,15 @@
                     </li>
                 </ul>
             {% endif %}
-        </nav>
+        </div>
+        <div class="col-sm-5">
+            <div class="item_selected"></div>{{ _self.filtered(filterTranslate) }}</div>
     </div>
 {% endmacro %}
 
 {% macro filter(field, field_id, type) %}
     {% if type == null or type == 'string' %}
-        <input class="form-control-sm form-control filter-select" form="{{ field_id }}"
+        <input class="form-control-sm form-control" form="{{ field_id }}"
                name="criteria[{{ field }}]"
                value="{{ app.request.get('criteria')[field] | default() }}">
     {% elseif type == 'boolean' %}
@@ -100,4 +102,26 @@
         {#name="criteria[receivedDate_to]"#}
         {#value="{{ app.request.get('criteria')[field]['to'] | default() }}">#}
     {% endif %}
+{% endmacro %}
+
+{% macro filtered(prefix) %}
+    <div class="form-group text-right list-filtered">
+        {% for filter, value in app.request.get('criteria') if value is not empty %}
+            <a
+                    href="{{ remove_filter(app.request, 'criteria[' ~ filter ~']') }}">
+                <div class="badge badge-default">{{ (prefix ~ filter) | trans }}
+                    {% if filter == 'state' %}
+                        : {{ ('state.' ~ value) | trans }}
+                    {% elseif filter == 'type' %}
+                        : {{ ('type.' ~ value) | trans }}
+                    {% elseif value == '1' or value == '0' %}
+                        : {{ value | trans }}
+                    {% elseif value != 'on' %}
+                        : {{ value }}
+                    {% endif %}
+                    &times;
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endmacro %}

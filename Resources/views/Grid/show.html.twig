@@ -24,12 +24,13 @@
                     </h4>
                 </div>
                 <div class="card-title-actions">
-                    {% block actions %}
-                        <a href="{{ go_back(metadata.applicationName ~ '_' ~ metadata.name ~ '_index') }}"
+                    {% block go_back %}
+                        <a onclick="history.back();"
                            name="back" class="btn btn-default btn-sm"><i
                                     class="fa fa-angle-left"></i> {{ 'action.back' | trans }}
                         </a>
-
+                    {% endblock %}
+                    {% block actions %}
                         <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~ '_update', { 'id': resource.id }) }}"
                            class="btn btn-default btn-sm">
                             <i class="fa fa-edit"></i> {{ 'action.edit' | trans }}

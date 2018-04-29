@@ -17,7 +17,7 @@ pagination:
     jump_to_page: Saltar a la página
     go: Ir
     page: Página
-    items: Encontrados %_count% elementos
+    items: "%_count% elementos"
 filter:
     none: Todos
     enabled: Activo

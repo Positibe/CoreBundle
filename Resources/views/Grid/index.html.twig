@@ -2,6 +2,7 @@
 
 {% from '@PositibeCore/Grid/_pagination.html.twig' import pagination %}
 {% from '@PositibeCore/Grid/_pagination.html.twig' import filter %}
+{% from '@PositibeCore/Grid/_pagination.html.twig' import filtered %}
 
 {% block title %}{{ (metadata.name ~ '.list.page_title') | trans }}{% endblock %}
 {% block subtitle %}{{ (metadata.name ~ '.list.page_subtitle') | trans }}{% endblock %}
@@ -18,14 +19,19 @@
     <form action="" method="get" id="form_{{ metadata.name }}_filter" name="criteria"></form>
     {% block content_header %}
         <div class="card-header white">
-            <div class="card-title text-muted text-uppercase text-right">
+            <div class="card-title text-muted text-uppercase text-right m-0">
                 <div class="card-title-caption">
-                    <h4><i class="{{ icon }}"></i> {{ (metadata.name ~ '.list.page_title') | trans }}
+                    <h4 class="m-0"><i class="{{ icon }}"></i> {{ (metadata.name ~ '.list.page_title') | trans }}
                         <small>{{ (metadata.name ~ '.list.page_subtitle') | trans }}</small>
                     </h4>
                 </div>
                 <div class="card-title-actions">
+                    {% block delete_action %}
+                        <a class="btn btn-warning btn-sm" data-toggle="modal" href="#modal_delete_modal"><i
+                                    class="fa fa-trash"></i> Eliminar</a>
+                    {% endblock %}
                     {% block actions %}
+
                         <a href="{{ path(metadata.applicationName ~ '_' ~ metadata.name ~ '_create') }}"
                            class="btn btn-sm btn-default">
                             <i class="fa fa-plus-circle"></i> {{ (metadata.name ~ '.list.create_new') | trans }}
@@ -37,9 +43,11 @@
     {% endblock %}
     <div class="card-block">
         {% block content_table %}
-            {{ pagination(resources) }}
+            {{ pagination(resources, metadata.name ~ '.table.') }}
             <table class="table table-striped table-bordered table-hover">
                 <tr>
+                    <th>
+                    </th>
                     <th>No.</th>
                     {% for name,attribute in attributes %}
                         {% if attribute['order'] is defined %}
@@ -51,7 +59,15 @@
                     <th>{{ 'action.actions'| trans }}</th>
                 </tr>
                 <tr class="table-field-filter">
-                    <th></th>
+                    <th>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" id="form_delete_multiple_checker"
+                                   class="custom-control-input" value="0">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </th>
+                    <th>
+                    </th>
                     {% for name,attribute in attributes %}
                         {% if attribute['filter'] is defined %}
                             <th>{{ filter(name, 'form_' ~ metadata.name ~ '_filter', attribute['filter']) }}</th>
@@ -72,6 +88,15 @@
                 {% set count = resources.maxPerPage * (resources.currentPage - 1) %}
                 {% for entity in resources %}
                     <tr>
+                        <td>
+                            <label class="custom-control custom-checkbox">
+                                <input form="form_delete_multiple" type="checkbox" value="{{ entity.id }}"
+                                       class="custom-control-input form_delete_multiple_item"
+                                       data-number="{{ count + loop.index }}"
+                                       data-id="{{ entity.id }}">
+                                <span class="custom-control-indicator"></span>
+                            </label>
+                        </td>
                         <td>{{ count + loop.index }}</td>
                         {% for name,attribute in attributes %}
                             <td>
@@ -84,7 +109,7 @@
                                     {% elseif attribute['type'] is defined and attribute['type'] == 'join' %}
                                         {{ attribute(entity,name) | join(', ') }}
                                     {% elseif attribute['type'] is defined and attribute['type'] == 'date' %}
-                                        {{ attribute(entity,name) | localizeddate('long', 'none') }}
+                                        {{ attribute(entity,name) | localizeddate('medium', 'none') }}
                                     {% elseif attribute['badge'] is defined %}
                                         <div class="badge badge-{{ attribute['badge'][attribute(entity,name)] is defined ? attribute['badge'][attribute(entity,name)] : 'default' }}">
                                             {{ attribute['trans'] is defined ? (attribute['trans'] ~ attribute(entity,name)) | trans : attribute(entity,name ) }}
@@ -112,8 +137,38 @@
                     </tr>
                 {% endfor %}
             </table>
-            {{ pagination(resources) }}
+            {{ pagination(resources, metadata.name ~ '.table.') }}
         {% endblock %}
+    </div>
+    <div class="modal fade" id="modal_delete_modal" tabindex="-1" role="dialog" aria-hidden="true"
+         style="display: none;" novalidate>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">{{ 'form.remove.title' | trans }}</h4>
+                </div>
+                <form action="{{ path('positibe_delete_multiple') }}" method="post"
+                      id="form_delete_multiple" name="form_delete_multiple">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <input type="hidden" name="form_delete_multiple[model]"
+                           value="{{ metadata.parameters['classes']['model'] }}"/>
+                    <input type="hidden" name="form_delete_multiple[ids]" id="form_delete_multiple_ids"
+                           value="DELETE"/>
+                    <div class="modal-body">
+                        <div class="text-warning">
+                            <i class="fa fa-warning"></i> {{ 'form.remove.message' | trans }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn default"
+                                data-dismiss="modal">{{ 'button.close' | trans }}</button>
+                        <button type="submit"
+                                class="btn btn-primary">{{ 'button.confirm' | trans }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
@@ -126,6 +181,7 @@
                     url: select.data('href'),
                     success: function (data) {
                         select.append(data);
+                        select.chosen();
                     }
                 })
             });
@@ -136,7 +192,98 @@
 
             $('.filter-select').on('change', function () {
                 $('.filter-button').click();
-            })
+            });
+
+            window.sessionStorage.setItem(location.pathname, location.search);
+
+            $('#form_delete_multiple_checker').on('change', function () {
+                if ($(this).val() === '1') {
+                    $(this).val(0);
+                    $('input.form_delete_multiple_item').each(function () {
+                        if (this.checked) {
+                            $(this).click();
+                        }
+                    });
+                } else {
+                    $(this).val(1);
+                    $('input.form_delete_multiple_item').each(function () {
+                        if (!this.checked) {
+                            $(this).click();
+                        }
+                    });
+                }
+            });
+
+            app.cleanSelected = function () {
+                window.sessionStorage.removeItem('delete_value_' + location.pathname);
+                window.sessionStorage.removeItem('delete_item_' + location.pathname);
+                $('#form_delete_multiple_checker').prop('indeterminate', true);
+                loadSelected();
+            };
+            var loadSelected = function () {
+
+                var item = window.sessionStorage.getItem('delete_item_' + location.pathname);
+                $('.list-filtered').find('.badge-to_delete').remove();
+                if (item) {
+                    $('.list-filtered').prepend('<a class="badge-to_delete" onclick="app.cleanSelected();"> <div class=" badge badge-warning">Seleccionados: ' + item.slice(1).replace(/"/gi, '') + ' &times;</div></a>');
+                }
+
+                $('.form_delete_multiple_item').each(function () {
+                    this.checked = false;
+                });
+                var value = window.sessionStorage.getItem('delete_value_' + location.pathname);
+                if (value) {
+                    value = value.slice(1);
+                    value.split(",").forEach(function (elem) {
+                        $('[data-id=' + elem + ']').each(function () {
+                            this.checked = true;
+                        })
+                    })
+                    $('#form_delete_multiple_ids').val(value.slice(1).replace(/"/gi, ''));
+                }
+
+                for (var i = 0; i < window.sessionStorage.length; i++) {
+                    var key = window.sessionStorage.key(i);
+                    var query = '[href="' + key + '"]';
+
+                    $(query).attr('href', $(query).attr('href') + window.sessionStorage.getItem(key));
+                }
+
+
+            };
+            $('#form_{{ metadata.name }}_filter').on('submit', function () {
+                app.cleanSelected();
+            });
+            $('#form_delete_multiple').on('submit', function () {
+                app.cleanSelected();
+            });
+            loadSelected();
+
+            $('.form_delete_multiple_item').on('change', function () {
+                var id = $(this).data('id');
+                var number = $(this).data('number');
+                var value = window.sessionStorage.getItem('delete_value_' + location.pathname);
+                var item = window.sessionStorage.getItem('delete_item_' + location.pathname);
+                if (!value) {
+                    window.sessionStorage.setItem('delete_value_' + location.pathname, '');
+                    value = '';
+                }
+                if (!item) {
+                    window.sessionStorage.setItem('delete_item_' + location.pathname, '');
+                    item = '';
+                }
+                value = value.replace(',"' + id + '"', '');
+                item = item.replace(',"' + number + '"', '');
+                if (this.checked) {
+                    value += ',"' + id + '"';
+                    item += ',"' + number + '"';
+                }
+
+                window.sessionStorage.setItem('delete_value_' + location.pathname, value);
+                window.sessionStorage.setItem('delete_item_' + location.pathname, item);
+                $('.item_selected').remove().append('<div class="badge badge-warning">Borrar ' + item + '</div>');
+                loadSelected();
+            });
         })
     </script>
 {% endblock %}
