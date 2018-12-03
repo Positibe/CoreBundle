@@ -6,7 +6,7 @@
  * Time: 22:36
  */
 
-namespace Positibe\Bundle\CoreBundle\Form\DataTransformer;
+namespace Positibe\Bundle\FilterBundle\Form\DataTransformer;
 
 
 use Doctrine\Common\Collections\Collection;

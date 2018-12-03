@@ -8,18 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CoreBundle\Repository;
+namespace Positibe\Bundle\FilterBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository as SyliusEntityReporitoy;
 
 /**
  * Class EntityRepository
- * @package Positibe\Bundle\CoreBundle\Repository
+ * @package Positibe\Bundle\FilterBundle\Repository
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
-class EntityRepository extends SyliusEntityReporitoy
+trait CriteriaTrait
 {
     /**
      * @param QueryBuilder $queryBuilder

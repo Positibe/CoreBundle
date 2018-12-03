@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CoreBundle\Form\Extension;
+namespace Positibe\Bundle\FilterBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * This class provide the help option to all form's type
  *
  * Class FormTypeExtension
- * @package Positibe\Bundle\CoreBundle\Form\Extension
+ * @package Positibe\Bundle\FilterBundle\Form\Extension
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

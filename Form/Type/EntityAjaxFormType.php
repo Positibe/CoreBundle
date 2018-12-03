@@ -1,9 +1,9 @@
 <?php
 
-namespace Positibe\Bundle\CoreBundle\Form\Type;
+namespace Positibe\Bundle\FilterBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Positibe\Bundle\CoreBundle\Form\DataTransformer\EntityAjaxDataTransformer;
+use Positibe\Bundle\FilterBundle\Form\DataTransformer\EntityAjaxDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;

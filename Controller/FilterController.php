@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CoreBundle\Controller;
+namespace Positibe\Bundle\FilterBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class FilterController
- * @package Positibe\Bundle\CoreBundle\Controller
+ * @package Positibe\Bundle\FilterBundle\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

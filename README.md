@@ -1,16 +1,14 @@
-PositibeCoreBundle
-==================
+PositibeFilterBundle
+====================
 
-Positibe CoreBundle provide common features to Positibe bundles.
-
-Integrate Sylius ResourcesBundle, Gedmo DoctrineExtension and some other functions.
+Positibe FilterBundle provide filtering features to Positibe bundles.
 
 Installation
 ------------
 
 To install the bundle just add the dependent bundles:
 
-    php composer.phar require positibe/core-bundle
+    php composer.phar require positibe/filter-bundle
 
 Next, be sure to enable the bundles in your application kernel:
 
@@ -31,7 +29,7 @@ Next, be sure to enable the bundles in your application kernel:
             /************** Stof DoctrineExtensionBundle ****************/
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 
-            new Positibe\Bundle\CoreBundle\PositibeCoreBundle(),
+            new Positibe\Bundle\FilterBundle\PositibeFilterBundle(),
 
             // ...
         );

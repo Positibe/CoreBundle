@@ -7,7 +7,7 @@ sylius_resource:
 parameters:
     locale: es
     locales: [es, en]
-    positibe_core.sorting_template: PositibeCoreBundle:Grid:_sorting.html.twig
+    positibe_core.sorting_template: PositibeFilterBundle:Grid:_sorting.html.twig
 
 stof_doctrine_extensions:
     default_locale: "%locale%"

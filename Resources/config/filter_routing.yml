@@ -1,15 +1,15 @@
 positibe_core_entity_filter:
     path: /filter_entity
-    defaults: { _controller: PositibeCoreBundle:Filter:getEntityFilter }
+    defaults: { _controller: PositibeFilterBundle:Filter:getEntityFilter }
 
 positibe_core_enum_filter:
     path: /filter_enum/{type}/{selected}
-    defaults: { _controller: PositibeCoreBundle:Filter:getEnumFilter }
+    defaults: { _controller: PositibeFilterBundle:Filter:getEnumFilter }
 
 positibe_core_method_filter:
     path: /filter_method/{class}/{method}/{selected}
-    defaults: { _controller: PositibeCoreBundle:Filter:getMethodFilter }
+    defaults: { _controller: PositibeFilterBundle:Filter:getMethodFilter }
 
 positibe_core_api_entity_ajax:
     path: /filter_entity_ajax
-    defaults: { _controller: PositibeCoreBundle:Filter:apiEntityAjax }
+    defaults: { _controller: PositibeFilterBundle:Filter:apiEntityAjax }

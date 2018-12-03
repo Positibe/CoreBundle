@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\CoreBundle\Repository;
+namespace Positibe\Bundle\FilterBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 
 
 /**
  * Class FilterRepository
- * @package Positibe\Bundle\CoreBundle\Entity
+ * @package Positibe\Bundle\FilterBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

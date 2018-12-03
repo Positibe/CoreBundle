@@ -53,7 +53,7 @@ Este bundle te instalará un conjunto de librerías y otros bundle que deberás 
             new Positibe\Bundle\OrmRoutingBundle\PositibeOrmRoutingBundle(),
             new Positibe\Bundle\OrmMenuBundle\PositibeOrmMenuBundle(),
             new Positibe\Bundle\OrmBlockBundle\PositibeOrmBlockBundle(),
-            new Positibe\Bundle\CoreBundle\PositibeCoreBundle(),
+            new Positibe\Bundle\FilterBundle\PositibeFilterBundle(),
             new Positibe\Bundle\OrmContentBundle\PositibeOrmContentBundle(),
             //.. y muchos más
 
@@ -89,7 +89,7 @@ Por último necesita agregar unas lineas al archivo app.php y al app_dev.php (Ig
 
 Y listo ya puedes configurar tus propios recursos.
 
-Configurando los recursos del PositibeCoreBundle
+Configurando los recursos del PositibeFilterBundle
 -----------------------------------------------
 
 Los recursos ya vienes con una configuración por defecto que puede importar o copiar:
@@ -98,21 +98,21 @@ Los recursos ya vienes con una configuración por defecto que puede importar o c
 
     imports:
         # ....
-        # - { resource: @PositibeCoreBundle/Resources/config/config.yml }
-        - { resource: @PositibeCoreBundle/Resources/config/sylius_crud.yml }
+        # - { resource: @PositibeFilterBundle/Resources/config/config.yml }
+        - { resource: @PositibeFilterBundle/Resources/config/sylius_crud.yml }
 
 Con esta configuración tiene acceso pleno a:
 
 MenuNode:
 * entity: Positibe\Bundle\OrmContentBundle\Entity\MenuNode
 * positibe.controller.menu: Sylius\Bundle\ResourceBundle\Controller\ResourceController
-* positibe.repository.menu: Positibe\Bundle\CoreBundle\Repository\MenuNodeRepository
+* positibe.repository.menu: Positibe\Bundle\FilterBundle\Repository\MenuNodeRepository
 * positibe.manager.menu: ~
 
 Page:
 * entity: Positibe\Bundle\OrmContentBundle\Entity\Page
-* positibe.controller.menu: Positibe\Bundle\CoreBundle\Controller\TranslatableController
-* positibe.repository.menu: Positibe\Bundle\CoreBundle\Repository\PageRepository
+* positibe.controller.menu: Positibe\Bundle\FilterBundle\Controller\TranslatableController
+* positibe.repository.menu: Positibe\Bundle\FilterBundle\Repository\PageRepository
 * positibe.manager.menu: ~
 
 entre otras..
@@ -124,7 +124,7 @@ vez:
 
     # ...
     _positibe_cmf:
-        resource: "@PositibeCoreBundle/Resources/config/routing.yml"
+        resource: "@PositibeFilterBundle/Resources/config/routing.yml"
         prefix: /dashboard
 
 Por defecto las plantillas

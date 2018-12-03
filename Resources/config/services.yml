@@ -1,17 +1,17 @@
 services:
     positibe_core.core_extension:
-        class: Positibe\Bundle\CoreBundle\Twig\Extension\PositibeCoreExtension
+        class: Positibe\Bundle\FilterBundle\Twig\Extension\PositibeCoreExtension
         arguments: ["@service_container"]
         tags:
             - { name: twig.extension }
 
     positibe_core.form_type_extension:
-        class: Positibe\Bundle\CoreBundle\Form\Extension\FormTypeExtension
+        class: Positibe\Bundle\FilterBundle\Form\Extension\FormTypeExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
 
     positibe_core.entity_ajax_form_type:
-        class: Positibe\Bundle\CoreBundle\Form\Type\EntityAjaxFormType
+        class: Positibe\Bundle\FilterBundle\Form\Type\EntityAjaxFormType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }

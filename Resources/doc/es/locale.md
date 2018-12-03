@@ -8,7 +8,7 @@ Agregar al routing principal el locale_routing.yml bajo un acceso libre:
     # app/config/routing.yml
 
     locale:
-        resource: "@PositibeCoreBundle/Resources/config/locale_routing.yml"
+        resource: "@PositibeFilterBundle/Resources/config/locale_routing.yml"
         prefix:   /
 
 En la plantilla usar:

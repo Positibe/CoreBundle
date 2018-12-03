@@ -1,15 +1,15 @@
 {
-    "name": "positibe/core-bundle",
+    "name": "positibe/filter-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony PositibeCoreBundle",
+    "description": "Symfony PositibeFilterBundle",
     "keywords": [
-        "core",
+        "filter",
         "positibe",
         "positibelabs"
     ],
-    "homepage": "http://www.positibelabs.com/bundles/core",
+    "homepage": "http://www.positibelabs.com/bundles/filter",
     "license": "MIT",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "Pedro Carlos Abreu Jiménez",
@@ -22,21 +22,19 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "~2.8|~3.0",
-        "gedmo/doctrine-extensions": "~2.4",
-        "stof/doctrine-extensions-bundle": "1.2.*",
-        "twig/extensions": "~1.0",
-        "sylius/resource-bundle": "^1.0",
-        "pcabreus-utils/named-character-converter": "~1.0"
+        "symfony/framework-bundle": "^3.0|^4.0",
+        "symfony/form": "^3.0|^4.0",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/orm": "^2.5"
     },
     "autoload": {
         "psr-4": {
-            "Positibe\\Bundle\\CoreBundle\\": ""
+            "Positibe\\Bundle\\FilterBundle\\": ""
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         }
     }
 }
